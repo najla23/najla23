@@ -5,8 +5,9 @@ Post-doc researcher in molecular dynamics, quantum chemistry, and machine learni
 ---
 
 ## 💻 Current Projects
+- 🧬 Monte Carlo simulation of MHC-TCR interactions in a 2-dimensional plane to study the activation of T-cells.
+- ⚗️ Single molecule lifetime analysis.  
 - 🔥 Polarizable force fields for water & ions
-
 - 🧪 MD simulations and free energy calculations
 
 ---
