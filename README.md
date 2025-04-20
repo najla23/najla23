@@ -5,7 +5,7 @@ Post-doc researcher in molecular dynamics, quantum chemistry, and machine learni
 ---
 
 ## 💻 Current Projects
-- 🎗️ Chemotherapy-enhanced efficacy for chemoresistant cancer cells:
+- 🎗️ Chemotherapy-enhanced efficacy for chemoresistant cancer cells
 - 🧬 Monte Carlo simulation of MHC-TCR interactions in a 2-dimensional plane to study the activation of T-cells.
 - ⚗️ Single molecule lifetime analysis.  
 - 🔥 Polarizable force fields for water & ions
