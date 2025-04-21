@@ -12,15 +12,12 @@ Post-doc researcher in molecular dynamics, quantum chemistry, and machine learni
 ---
 
 ## 📈 GitHub Stats
-
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=najla23&show_icons=true&theme=radical" alt="Najla's GitHub stats" />
 </p>
 
 ---
-
 ## 🐧 Languages & Tools
-
 <p>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="40" alt="Python"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" width="40" alt="Bash"/>
@@ -29,7 +26,6 @@ Post-doc researcher in molecular dynamics, quantum chemistry, and machine learni
 </p>
 
 ---
-
 ## 📊 Most Used Languages
 
 <p align="center">
@@ -37,7 +33,6 @@ Post-doc researcher in molecular dynamics, quantum chemistry, and machine learni
 </p>
 
 ---
-
 ## 🌍 Connect with Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-najla23-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/najla-hosseini-53545a76/)
@@ -45,6 +40,5 @@ Post-doc researcher in molecular dynamics, quantum chemistry, and machine learni
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Follow-00CCBB?style=flat-square&logo=researchgate)](https://www.researchgate.net/profile/A-Najla-Hosseini?ev=hdr_xprf)
 
 ---
-
  Thanks for visiting my profile!
 
