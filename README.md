@@ -1,9 +1,7 @@
 # 👋 Hi, I am Najla!
-
 Post-doc researcher in molecular dynamics, quantum chemistry, and machine learning, passionate about building tools for biomolecular simulations.
 
 ---
-
 ## 💻 Current Projects
 - 🎗️ Chemotherapy-enhanced efficacy for chemoresistant cancer cells
 - 🧬 Monte Carlo simulation of MHC-TCR interactions in a 2-dimensional plane to study the activation of T-cells.
