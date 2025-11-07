@@ -2,12 +2,13 @@
 Post-doc researcher in molecular dynamics, quantum chemistry, and machine learning, passionate about building tools for biomolecular simulations.
 
 ---
-## 💻 Current Projects
-- 🎗️ Chemotherapy-enhanced efficacy for chemoresistant cancer cells.
-- 🧬 Monte Carlo simulation of MHC-TCR interactions in a 2-dimensional plane to study the activation of T-cells.
-- ⚗️ Single molecule lifetime analysis.  
-- 🔥 Polarizable force fields for ions and Noble gases.
-- 🧪 MD simulations and free energy calculations.
+🎗️ Chemotherapy-Enhanced Cancer Treatment — Exploring drug combinations that boost the efficacy of chemotherapy in chemoresistant cancer cells through molecular modeling and data-driven design.
+
+🧬 Molecular Dynamics (MD) Simulations in Oncology — Investigating conformational dynamics and molecular mechanisms underlying drug resistance and target interactions in cancer-related systems.
+
+⚗️ Peptide Inhibitor Design using ML & QM — Integrating machine learning and quantum chemistry to design and optimize peptide-based inhibitors for oncogenic proteins.
+
+🧪 Non-Equilibrium Free Energy Calculations — Computing accurate free energy landscapes.
 
 ---
 
