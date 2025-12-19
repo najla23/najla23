@@ -26,12 +26,15 @@ Postdoctoral researcher working at the intersection of **molecular dynamics, qua
 - **Electrostatic Potential Modeling and Force-Field Development**  
   *ChemRxiv* (2025)  
   https://doi.org/10.26434/chemrxiv-2025-q2v9m
+  
+  - *Phys. Chem. Chem. Phys.* (2025)  
+  https://doi.org/10.1039/D5CP01254F
 
 - *Phys. Chem. Chem. Phys.* (2022)  
   https://doi.org/10.1039/D2CP00056C
 
 - *Phys. Chem. Chem. Phys.* (2021)  
-  https://doi.org/10.1039/D1CP05218G
+  https://doi.org/10.1039/D1CP05218G  
 
 ---
 
@@ -39,7 +42,7 @@ Postdoctoral researcher working at the intersection of **molecular dynamics, qua
 - *J. Phys. Chem. Lett.* (2024)  
   https://doi.org/10.1021/acs.jpclett.4c00012
 
-- *Journal of Molecular Modeling* (2023)  
+- *The Protein Journal* (2023)  
   https://doi.org/10.1007/s10930-023-10119-3
 
 ---
