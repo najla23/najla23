@@ -27,7 +27,7 @@ Postdoctoral researcher working at the intersection of **molecular dynamics, qua
   *ChemRxiv* (2025)  
   https://doi.org/10.26434/chemrxiv-2025-q2v9m
   
-  - *Phys. Chem. Chem. Phys.* (2025)  
+- *Phys. Chem. Chem. Phys.* (2025)  
   https://doi.org/10.1039/D5CP01254F
 
 - *Phys. Chem. Chem. Phys.* (2022)  
