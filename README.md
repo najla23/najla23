@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Najla ☕🍰🍫💪🎨
+# 👋 Hi, I'm Najla ☕🍰🍫💪🎨⛰️
 
 ☕ **Firm believer that coffee improves neural fluctuations, productivity, and overall survival.**  
 💻 Enjoys programming and 📘 biophysics books (Nelson’s *Biological Physics* is a personal favorite).  
@@ -80,7 +80,7 @@ and occasionally arguing with convergence plots.
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40"/>
 </p>
 
-💡 Mostly Python, occasionally Bash, always Linux.
+💡 Mostly Python and C++, occasionally Bash, always Linux.
 
 ---
 
