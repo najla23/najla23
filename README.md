@@ -4,12 +4,14 @@
 💻 Enjoys programming and 📘 biophysics books (Nelson’s *Biological Physics* is a personal favorite).  
 ♟️ Plays chess, 🧗‍♀️ climbs walls (indoors and out), and 🎬 watches mysterious movies that raise more questions than answers.  
 🎨 Writes poetry and paints in free time — because even scientists need creative escape velocity.
+
 ---
 
 **Postdoctoral researcher operating at the collision point of**  
 🧪 **Molecular Dynamics**, ⚛️ **Quantum Chemistry**, and 🤖 **Machine Learning**,  
 building **methods, models, and simulations** for biological and materials science —  
 and occasionally arguing with convergence plots.
+
 ---
 
 ## 🔬 What I Actually Do (a.k.a. Research Interests)
