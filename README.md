@@ -7,7 +7,7 @@
 
 ---
 
-**Postdoctoral researcher operating at the collision point of**  
+**Postdoctoral researcher working at the collision point of**  
 🧪 **Molecular Dynamics**, ⚛️ **Quantum Chemistry**, and 🤖 **Machine Learning**,  
 building **methods, models, and simulations** for biological and materials science —  
 and occasionally arguing with convergence plots.
