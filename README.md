@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Najla ☕🍰🍫💪🎨⛰️🦁☀️❤️🤍💚
+# 👋 Hi, I'm Najla ☕🍰🍫💪🎨⛰️
 
 ☕ **Firm believer that coffee improves neural fluctuations, productivity, and overall survival.**  
 💻 Enjoys programming and 📘 biophysics books (Nelson’s *Biological Physics* is a personal favorite).  
