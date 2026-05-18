@@ -7,6 +7,17 @@
 
 ---
 
+### My Philosophy of Life
+
+Inspired by the Persian poet :contentReference[oaicite:0]{index=0}:
+
+> "Get up and do not grieve over this passing world.  
+> Sit down and have a moment of joy."
+
+And one of the greatest joys is programming while drinking coffee 😅☕💻
+
+---
+
 **Postdoctoral researcher working at the collision point of**  
 🧪 **Molecular Dynamics**, ⚛️ **Quantum Chemistry**, and 🤖 **Machine Learning**,  
 building **methods, models, and simulations** for biological and materials science —  
