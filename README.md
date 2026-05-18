@@ -9,7 +9,7 @@
 
 ### My Philosophy of Life
 
-Inspired by the Persian poet :contentReference[oaicite:0]{index=0}:
+Inspired by the Persian poet :Khayyam:
 
 > "Get up and do not grieve over this passing world.  
 > Sit down and have a moment of joy."
