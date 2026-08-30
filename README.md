@@ -13,7 +13,7 @@
 
 <div align="center">
 
-### My Philosophy of Life
+### My Philosophy of Scientific Life
 
 Inspired by the Persian poet :Khayyam:
 
