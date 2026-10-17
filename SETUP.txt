@@ -1,0 +1,38 @@
+NAJLA HOSSEINI — PHYSICS × ART
+
+The complete README is ready to use. All original prose, publication entries,
+and DOI links have been preserved. The graphics directory is now named nh.
+
+INSTALL
+1. Open the public repository https://github.com/najla23/najla23
+   Create a public repository named najla23 if it does not exist.
+2. Upload README.md to the root, alongside the nh folder from this package:
+   README.md
+   nh/physics-art.svg
+   nh/divider.svg
+3. Commit. Your profile is https://github.com/najla23
+
+Keep the filenames and letter case exactly as supplied.
+The earlier assets folder is no longer referenced by this README.
+If using GitHub's upload interface, drag the nh folder into the repository root.
+
+The artwork combines harmonic curves, wave traces, and painterly gestures.
+It is a self-contained SVG with slow light-trace animations, no JavaScript,
+and a reduced-motion treatment. The preview PNG is a still image.
+
+HITS AND STATISTICS
+The hits badge counts requests for its image, not unique people. It does not
+retrieve GitHub's historical Traffic data. GitHub caching may affect counts.
+The existing third-party statistics service has been retained and restyled.
+Remote cards and badges depend on their respective services being available.
+No statistics have been fabricated. No changes have been pushed to GitHub.
+
+CHECKS
+Original prose and DOI preservation, local nh links, SVG XML validity,
+and static banner appearance have been checked. Live GitHub rendering and
+browser playback of the animation have not been verified here.
+
+References:
+https://github.com/silentsoft/hits
+https://github.com/anuraghazra/github-readme-stats
+https://docs.github.com/en/account-and-profile/how-tos/profile-customization/managing-your-profile-readme
