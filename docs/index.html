@@ -19,8 +19,8 @@
 </head>
 <body>
 <main class="shell">
- <header class="masthead"><a class="brand" href="https://github.com/najla23"><span class="nh" aria-hidden="true">nh</span><span><strong>Najla Hosseini</strong><small>Physics × Art</small></span></a><span class="edition">CHEMISTRY STORM / 02</span></header>
- <section class="intro"><div><p class="kicker">One ion. Three rooms. Find the right protein.</p><h1>Ion rescue.<br><em>A protein quest.</em></h1></div><p class="lead">A leaking molecular reactor. Toxic rain from the first move.<br>Dodge falling hazards, avoid ignition cores, and find your protein.</p></section>
+ <header class="masthead"><a class="brand" href="https://github.com/najla23"><span class="nh" aria-hidden="true">nh</span><span><strong>Najla Hosseini</strong><small>Physics × Art</small></span></a><span class="edition">CHEMISTRY STORM / 03</span></header>
+ <section class="intro"><div><p class="kicker">One ion. Three rooms. Find the right protein.</p><h1>Ion rescue.<br><em>A protein quest.</em></h1></div><p class="lead">A leaking molecular reactor. 3× faster rain. 6× the incoming ions.<br>Dodge falling hazards, avoid ignition cores, and find your protein.</p></section>
  <div class="layout">
   <div>
    <section class="game-card" id="gameCard" aria-label="Ion rescue game">
@@ -65,15 +65,15 @@ const LEVELS=[
 ];
 class EscapeGame{
  constructor(){this.onEvent=()=>{};this.total=0;this.level=0;this.visual=0;this.effects=[];this.load(0);}
- load(index){this.level=index;this.room=LEVELS[index];this.p={x:this.room.start[0],y:this.room.start[1],vx:0,vy:0,angle:0};this.state='ready';this.elapsed=0;this.remaining=this.room.time;this.health=this.room.lives;this.dockHold=0;this.hits=0;this.points=0;this.collected=new Set();this.cooldown=0;this.hydration=0;this.burstTime=0;this.invulnerable=0;this.facing={x:1,y:0};this.effects=[];this.trail=[];this.trailTick=0;this.winBreakdown=null;this.lockNotice=-10;this.rainCount=4;this.nextRain=.65;this.drops=[];this.splashes=[];this.blockedDrops=0;this.failureReason=null;this.flameClock=0;this.ignition=null;for(let k=0;k<4;k++)this.spawnDrop(k,64-k*8);}
- spawnDrop(index,y=40){const lane=RAIN_LANES[index%RAIN_LANES.length];this.drops.push({x:lane,y,vy:120+this.level*23+(index%3)*15,r:15,type:index%TOXINS.length,id:index});}
- get rainInterval(){return [.88,.72,.56][this.level];}
+ load(index){this.level=index;this.room=LEVELS[index];this.p={x:this.room.start[0],y:this.room.start[1],vx:0,vy:0,angle:0};this.state='ready';this.elapsed=0;this.remaining=this.room.time;this.health=this.room.lives;this.dockHold=0;this.hits=0;this.points=0;this.collected=new Set();this.cooldown=0;this.hydration=0;this.burstTime=0;this.invulnerable=0;this.facing={x:1,y:0};this.effects=[];this.trail=[];this.trailTick=0;this.winBreakdown=null;this.lockNotice=-10;this.rainCount=8;this.nextRain=.15;this.drops=[];this.splashes=[];this.blockedDrops=0;this.failureReason=null;this.flameClock=0;this.ignition=null;for(let k=0;k<8;k++)this.spawnDrop(k,64-(k%4)*8);}
+ spawnDrop(index,y=40){const lane=RAIN_LANES[index%RAIN_LANES.length];this.drops.push({x:lane,y,vy:3*(120+this.level*23+(index%3)*15),r:15,type:index%TOXINS.length,id:index});}
+ get rainInterval(){return [.88,.72,.56][this.level]/6;}
  get rainForecast(){return{x:RAIN_LANES[this.rainCount%RAIN_LANES.length],type:this.rainCount%TOXINS.length,seconds:Math.max(0,this.nextRain-this.elapsed)};}
  ignite(){if(this.state!=='running')return;this.health=0;this.hits++;this.points-=80;this.hydration=0;this.dockHold=0;this.failureReason='ignition';this.ignition={x:this.p.x,y:this.p.y};this.flameClock=0;this.state='burning';this.p.vx=this.p.vy=0;this.event('ignite','IGNITION! −80 points. The reaction core is fatal, even with a water shield.',-80);}
  advanceRain(dt){
   this.splashes.forEach(s=>s.life-=dt);this.splashes=this.splashes.filter(s=>s.life>0);
   while(this.elapsed>=this.nextRain){this.spawnDrop(this.rainCount++);this.nextRain+=this.rainInterval;}
-  for(const d of this.drops){d.y+=d.vy*dt;d.vy=Math.min(d.vy+24*dt,245+this.level*25);}
+  for(const d of this.drops){d.y+=d.vy*dt;d.vy=Math.min(d.vy+72*dt,3*(245+this.level*25));}
  }
  resolveRain(){
   const p=this.p;
@@ -203,9 +203,9 @@ if(typeof document!=='undefined'){
  const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),game=new EscapeGame();
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const keys=new Set(),pads=new Map();let pointer=null,last=0,acc=0,lastState='',sound=false,audio=null,best=0,lastUi=-1;
- try{best=Number(localStorage.getItem('nh-ion-rescue-chemistry-v2-best')||0);if(!Number.isFinite(best))best=0;}catch(e){}
+ try{best=Number(localStorage.getItem('nh-ion-rescue-chemistry-v3-fast-best')||0);if(!Number.isFinite(best))best=0;}catch(e){}
  function tone(type){if(!sound)return;try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime,osc=audio.createOscillator(),gain=audio.createGain();osc.connect(gain);gain.connect(audio.destination);osc.type=type==='hit'?'sawtooth':'sine';osc.frequency.setValueAtTime(type==='hit'?140:type==='win'?650:820,now);osc.frequency.exponentialRampToValueAtTime(type==='hit'?60:1200,now+.17);gain.gain.setValueAtTime(.035,now);gain.gain.exponentialRampToValueAtTime(.001,now+.23);osc.start(now);osc.stop(now+.24);}catch(e){}}
- game.onEvent=e=>{$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win'].includes(e.type))tone(e.type==='ignite'?'hit':e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-chemistry-v2-best',String(best));}catch(e){}}};
+ game.onEvent=e=>{$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win'].includes(e.type))tone(e.type==='ignite'?'hit':e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-chemistry-v3-fast-best',String(best));}catch(e){}}};
  function clearInput(){keys.clear();pads.clear();pointer=null;}
  function resumeFocus(){clearInput();last=0;acc=0;canvas.focus({preventScroll:true});sync(true);}
  function sync(force=false){const t=Math.ceil(game.remaining);if(!force&&t===lastUi&&game.state===lastState&&game.state!=='running')return;lastUi=t;

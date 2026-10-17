@@ -30,7 +30,7 @@ If the previous version appears, refresh the page without using the cache.
 WHAT APPEARS WHERE
 
 GitHub profile (github.com/najla23): an animated GIF preview appears directly
-inside the README. It is an animation of a real game playthrough followed by an ignition hazard example,
+inside the README. It is an animation of a real attempt under the fast, dense rain,
 not an interactive canvas. GitHub sanitizes scripts in README content, so a
 playable JavaScript game cannot be embedded there. The image links to the game.
 
@@ -43,9 +43,13 @@ Molecule_Playground.html (the same updated Ion Rescue game), in a browser.
 NEW IN CHEMISTRY STORM
 
 Four labelled toxic hazards fall from the first move: Pb2+, Hg2+, Cd2+,
-and As* (arsenic-containing species). Four initial drops are visible before
+and As* (arsenic-containing species). Eight initial drops are visible before
 movement; nothing harmful moves until you start. New drops have a dashed
 warning lane before entering. Rain is faster and more frequent in later rooms.
+Compared with the previous Chemistry Storm version, initial falling speeds,
+acceleration, and speed caps are tripled; the spawn rate is multiplied by six.
+Spawn intervals are 0.1467, 0.12, and 0.0933 seconds in rooms 1, 2, and 3.
+New drops start arriving 0.15 seconds after movement begins.
 Walls intercept rain. A temporary water shield blocks a toxic hit; otherwise
 it costs 40 points and one life. Drops disappear after impact.
 
@@ -88,7 +92,7 @@ Hit toxic rain, an active trap, barrier, or wrong protein: -40 points and -1 sta
 Two hits or an expired timer: GAME OVER, followed by "Try it later!"
 One second of hit immunity prevents multiple hits from one instant contact.
 Retry resets only the current room's score and time; previous room scores stay.
-Chemistry Storm best scores are stored separately from earlier game versions,
+Fast-rain best scores are stored separately from earlier game versions,
 only in the browser where local storage is available.
 
 Move: arrows or WASD; hold a point in the room to steer toward it.
@@ -113,16 +117,14 @@ The profile hits badge and statistics cards still use external services.
 
 VALIDATION
 
-All three hard rooms were completed in a deterministic playthrough using
-ordinary movement, visible barrier timing, and the normal Burst control.
-The opening room was completed in 8.21 seconds, room 2 in 11.76 seconds,
-and the finale in 10.14 seconds; each playthrough incurred one hit.
-These are feasibility checks, not human difficulty or usability measurements. Engine checks covered rewards paid once, water shields, barrier
-passage, decoy penalties, hit immunity, failure, the final 12-second timeout, precision docking and hold resets,
-retry, pause, and finite/bounded motion. Native Canvas 2D rendering and a DOM
-test harness checked keyboard/touch events, pointer cancel, the direction pad,
-burst recharge, pause/resume, loss of focus, Game Over text, and retry.
-The animated preview was rendered from the actual Chemistry Storm game engine.
+The fast-rain update was checked against the previous version for exactly
+tripled starting speeds and a sixfold spawn rate, eight initial particles,
+increased average on-screen particle count, and bounded particle cleanup.
+Collision, shielding, paused/ready rain, wall interception, and ignition
+checks were retained. The new preview is rendered from the actual game engine;
+it shows an attempt ending in Game Over, not a successful completion.
+Earlier completion times do not apply to this faster, denser version.
+No completion-time or human-playability claim is made for this update.
 The chamber background has glass reaction columns, leaking pipes, glowing
 currents, membrane contours, molecular rings, a perspective floor, and a
 different palette in each room. Toxic hazards have bright outlines and
