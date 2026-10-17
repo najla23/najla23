@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# 👋 Hi, I'm Najla ☕🍰🍫💪🎨⛰️
+# 👋 Hi, I'm Najla 🎨⛰️
 
 <p align="center">
   <a href="https://hits.sh/github.com/najla23/">
@@ -28,7 +28,7 @@
 
 </div>
 
-<p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
+<p align="center"><img src="nh/divider.svg" width="100%" height="14" alt=""/></p>
 
 <div align="center">
 
@@ -43,7 +43,7 @@ And one of the greatest joys is programming while drinking coffee 😅☕💻
 
 </div>
 
-<p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
+<p align="center"><img src="nh/divider.svg" width="100%" height="14" alt=""/></p>
 
 <div align="center">
 
