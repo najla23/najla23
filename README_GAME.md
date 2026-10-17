@@ -1,7 +1,7 @@
 <!-- NH_ION_GAME_START -->
 <a id="play"></a>
 
-## ⚛️ Ion Rescue — Water Is Your Way Out
+## ⚛️ Ion Rescue — Hard Mode
 
 <p align="center">
   <a href="https://najla23.github.io/najla23/">
@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <strong>One trapped ion. Water escorts. The right protein.</strong><br/>
-  <sub>+50 for water · +300 for the target · −40 for traps · a 24-second final room.</sub><br/>
+  <strong>Hard from the first move: two lives, short shields, narrow gates.</strong><br/>
+  <sub>+50 for water · +300 for the target · −40 for traps · a 12-second final room.</sub><br/>
   <a href="https://najla23.github.io/najla23/"><strong>▶ Play Ion Rescue</strong></a><br/>
   <sub>The animation appears here automatically. The interactive game runs on GitHub Pages.</sub>
 </p>

@@ -1,4 +1,4 @@
-NAJLA HOSSEINI — ION RESCUE / PHYSICS × ART
+NAJLA HOSSEINI — ION RESCUE / HARD MODE / PHYSICS × ART
 
 QUICK UPDATE OF YOUR EXISTING GITHUB PROFILE
 
@@ -45,26 +45,35 @@ THE GAME
 You control a potassium ion (K+). It starts trapped and must reach the green
 marked protein. The other protein is a decoy. Water escorts help the ion.
 
-Room 1: hydration cage, 55 seconds, Protein A.
-Room 2: decoy corridor, 50 seconds, Protein B.
-Room 3: final lock, 24 seconds, Protein B; moving traps and barriers that
-open for only 0.9 seconds in each 4.4-second cycle.
+All rooms start with only two lives.
+Room 1: pressure cage, 12 seconds, Protein A; a narrow 64-unit cage opening,
+       two moving traps, and a 0.9-second hold inside an 18-unit protein pocket.
+Room 2: decoy corridor, 15 seconds, Protein B; three moving traps and a
+       0.8-second hold inside a 19-unit protein pocket.
+Room 3: final lock, 12 seconds, Protein B; strong moving traps, narrow gates,
+       and a moving protein target. Hold inside its 18-unit pocket for 1 second.
+       The two barriers open for only 0.6 seconds in each 4.4-second cycle.
+Docking requires remaining inside the pocket at a speed below 60 game units/s.
+The hold resets if you leave the pocket or move too fast. Time a burst to
+cross a briefly open barrier, then brake before docking.
 
 Collect water: +50 points and a temporary shield. A shield reduces trap pull,
 prevents trap damage, and lets the ion pass through an active barrier.
-Shields last 6 seconds in rooms 1 and 2, and 4 seconds in the final room.
+Shields last 1.8 seconds in room 1, 2 seconds in room 2, and only 1.2 seconds
+in the final room.
 They do not protect against choosing the wrong protein.
 Reach the correct protein: +300 points.
 Finish without trap/decoy hits: +100 points.
 Each whole second left: +2 points.
 Hit an active trap, barrier, or wrong protein: -40 points and -1 stability.
-Three hits or an expired timer: GAME OVER, followed by "Try it later!"
-Brief hit immunity prevents multiple hits from one contact.
+Two hits or an expired timer: GAME OVER, followed by "Try it later!"
+One second of hit immunity prevents multiple hits from one instant contact.
 Retry resets only the current room's score and time; previous room scores stay.
-Best score is stored only in the browser, where local storage is available.
+Hard-mode best scores are stored separately from the earlier easier version,
+only in the browser where local storage is available.
 
 Move: arrows or WASD; hold a point in the room to steer toward it.
-Burst: Space or the Burst button, with a 3-second recharge.
+Burst: Space or the Burst button, with a 4-second recharge.
 Pause: P or Pause. Retry: R or Retry. Touch controls are provided.
 Backgrounding the page pauses gameplay. Sound is off until enabled.
 Reduced-motion preferences reduce decorative animation without changing rules.
@@ -81,13 +90,19 @@ The profile hits badge and statistics cards still use external services.
 
 VALIDATION
 
-All three rooms were completed through ordinary movement in a deterministic
-playthrough. Engine checks covered rewards paid once, water shields, barrier
-passage, decoy penalties, hit immunity, failure, the final 24-second timeout,
+All three hard rooms were completed in a deterministic playthrough using
+ordinary movement, visible barrier timing, and the normal Burst control.
+The opening room was completed in 8.15 seconds, room 2 in 11.76 seconds,
+and the finale in 9.96 seconds; the later rooms each incurred one hit.
+These are feasibility checks, not human difficulty or usability measurements. Engine checks covered rewards paid once, water shields, barrier
+passage, decoy penalties, hit immunity, failure, the final 12-second timeout, precision docking and hold resets,
 retry, pause, and finite/bounded motion. Native Canvas 2D rendering and a DOM
 test harness checked keyboard/touch events, pointer cancel, the direction pad,
 burst recharge, pause/resume, loss of focus, Game Over text, and retry.
-The animated preview was rendered from the actual game engine.
+The animated preview was rendered from the actual hard-mode game engine.
+The chamber background has layered membranes, flowing light, floating
+particles, depth movement, and a different palette in each room.
+Reduced-motion settings freeze these decorative effects.
 The installer was checked for preserved README content and repeatable updates.
 A full browser layout or real-device touch test was not available. These new
 files have not been pushed or deployed to GitHub by the assistant.

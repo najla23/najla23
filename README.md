@@ -32,19 +32,6 @@
 
 <div align="center">
 
-### My Philosophy of Scientific Life
-
-Inspired by the Persian poet :Khayyam:
-
-> "Get up and do not grieve over this passing world. > Sit down and have a moment of joy."
-
-And one of the greatest joys is programming while drinking coffee 😅☕💻
-
-</div>
-
-<p align="center"><img src="nh/divider.svg" width="100%" height="8" alt=""/></p>
-
-<div align="center">
 
 **Postdoctoral researcher working at the collision point of**  
 🧪 **Molecular Dynamics**, ⚛️ **Quantum Chemistry**, and 🤖 **Machine Learning**,  
