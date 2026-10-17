@@ -1,38 +1,62 @@
-NAJLA HOSSEINI — PHYSICS × ART
+NAJLA HOSSEINI — PHYSICS × ART + MOLECULAR PLAYGROUND
 
-The complete README is ready to use. All original prose, publication entries,
-and DOI links have been preserved. The graphics directory is now named nh.
+1. Upload README.md, nh/, and docs/ from this package to najla23/najla23.
+   Keep the folder structure. The complete original profile text is preserved.
+2. In that repository, open Settings > Pages.
+3. Select Deploy from a branch, select the branch containing these files
+   (normally main), choose /docs, and Save.
+4. When GitHub finishes deployment, the game will be at:
+   https://najla23.github.io/najla23/
+   The README launch card already points to this address.
 
-INSTALL
-1. Open the public repository https://github.com/najla23/najla23
-   Create a public repository named najla23 if it does not exist.
-2. Upload README.md to the root, alongside the nh folder from this package:
-   README.md
-   nh/physics-art.svg
-   nh/divider.svg
-3. Commit. Your profile is https://github.com/najla23
+If your repository uses a custom domain or a different Pages publishing
+configuration, use the address shown in Settings > Pages and update the two
+launch links in README.md. If docs/index.html already holds another site,
+keep that file and put this game at docs/molecule-playground.html instead;
+then point the README launch links to that filename under your Pages address.
 
-Keep the filenames and letter case exactly as supplied.
-The earlier assets folder is no longer referenced by this README.
-If using GitHub's upload interface, drag the nh folder into the repository root.
+READMEs cannot run this JavaScript game directly. The README contains a
+clickable illustration. The game runs on GitHub Pages or locally in a browser.
+For an offline copy, open docs/index.html directly in a modern browser.
+The separately provided Molecule_Playground.html contains the identical game.
 
-The artwork combines harmonic curves, wave traces, and painterly gestures.
-It is a self-contained SVG with slow light-trace animations, no JavaScript,
-and a reduced-motion treatment. The preview PNG is a still image.
+GAME
+Drag atoms using a mouse or touch. Adjust molecular motion and bond firmness.
+Try water, carbon dioxide, or a flexible bead chain. Toggle trails, shake,
+pause, reset, or use keyboard controls shown below the canvas.
+In Tiny challenge, guide the gold-ringed atom into the target and release it.
+Its whole molecule must remain calm for two seconds to collect the target.
+The challenge lowers the motion setting to make settling practical.
+Reduced-motion users start with the simulation paused and trails off.
 
-HITS AND STATISTICS
-The hits badge counts requests for its image, not unique people. It does not
-retrieve GitHub's historical Traffic data. GitHub caching may affect counts.
-The existing third-party statistics service has been retained and restyled.
-Remote cards and badges depend on their respective services being available.
-No statistics have been fabricated. No changes have been pushed to GitHub.
+This is an illustrative 2D toy using spring bonds, damping, soft collisions,
+and random kicks. Controls, masses, lengths, and times use arbitrary units.
+It does not implement a validated molecular force field or chemical reactivity.
+There are no external game dependencies, account requirements, or API keys.
+No network requests are made by the game unless the profile link is clicked.
 
-CHECKS
-Original prose and DOI preservation, local nh links, SVG XML validity,
-and static banner appearance have been checked. Live GitHub rendering and
-browser playback of the animation have not been verified here.
+FILES
+README.md
+nh/physics-art.svg
+nh/divider.svg
+nh/molecule-playground.svg
+docs/index.html
+docs/.nojekyll
+banner-preview.png
+SETUP.txt
 
-References:
+PROFILE
+The hits counter and profile statistics cards still use third-party services.
+The hits badge counts image requests, not unique people or historical traffic.
+
+VALIDATION
+All original prose and 10 DOI links were preserved. JavaScript syntax,
+finite/bounded motion at maximum settings, restoring spring forces,
+challenge scoring/release, startup, controls, keyboard handlers, pointer
+drag/cancel/release, and native Canvas 2D drawing passed local checks. Browser layout, touch behaviour on actual devices, and GitHub
+Pages deployment have not been verified. No changes were pushed to GitHub.
+
+REFERENCES
+https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+https://github.com/github/markup
 https://github.com/silentsoft/hits
-https://github.com/anuraghazra/github-readme-stats
-https://docs.github.com/en/account-and-profile/how-tos/profile-customization/managing-your-profile-readme

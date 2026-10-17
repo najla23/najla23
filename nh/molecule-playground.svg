@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
+ <title id="title">Play Molecular Playground</title>
+ <desc id="desc">A little physics, a little play. Drag atoms, stretch bonds, and collect calm moments. Click to open the interactive game.</desc>
+ <defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0e1c29"/><stop offset="1" stop-color="#241b30"/></linearGradient>
+  <linearGradient id="border"><stop stop-color="#68c7ca" stop-opacity=".6"/><stop offset="1" stop-color="#f0aebc" stop-opacity=".5"/></linearGradient>
+  <radialGradient id="oxygen" cx=".3" cy=".25"><stop stop-color="#fff1e6"/><stop offset=".3" stop-color="#f0aebc"/><stop offset="1" stop-color="#af6c8a"/></radialGradient>
+  <radialGradient id="hydrogen" cx=".3" cy=".25"><stop stop-color="#ffffff"/><stop offset=".4" stop-color="#dceff0"/><stop offset="1" stop-color="#87b1ba"/></radialGradient>
+  <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r=".8" fill="#b6c7df" opacity=".13"/></pattern>
+ </defs>
+ <rect x="1" y="1" width="1198" height="278" rx="20" fill="url(#bg)" stroke="url(#border)"/>
+ <rect x="610" y="15" width="560" height="250" fill="url(#dots)"/>
+ <text x="54" y="53" fill="#75d8d0" font-family="Arial,sans-serif" font-size="12" letter-spacing="3">AN INTERACTIVE COFFEE BREAK</text>
+ <text x="51" y="109" fill="#f2eee8" font-family="Georgia,serif" font-size="40">A little physics. A little play.</text>
+ <text x="54" y="147" fill="#b6c4d5" font-family="Arial,sans-serif" font-size="16">Drag atoms. Stretch bonds. Find a little balance.</text>
+ <rect x="54" y="185" width="325" height="48" rx="12" fill="#75d8d0"/>
+ <path d="M73 202L73 218L85 210Z" fill="#102d31"/>
+ <text x="99" y="216" fill="#102d31" font-family="Arial,sans-serif" font-weight="700" font-size="14">PLAY MOLECULAR PLAYGROUND</text>
+ <path d="M649 205Q691 190 710 149T781 100" stroke="#f0aebc" opacity=".2" stroke-width="2" fill="none"/>
+ <path d="M700 166L754 115L814 155" fill="none" stroke="#a1c9d4" stroke-opacity=".5" stroke-width="10" stroke-linecap="round"/>
+ <circle cx="754" cy="115" r="30" fill="url(#oxygen)"/>
+ <circle cx="754" cy="115" r="40" fill="none" stroke="#f3d6a5" stroke-dasharray="5 5" stroke-width="1.5"/>
+ <circle cx="700" cy="166" r="20" fill="url(#hydrogen)"/>
+ <circle cx="814" cy="155" r="20" fill="url(#hydrogen)"/>
+ <g text-anchor="middle" fill="#142431" font-family="Arial,sans-serif" font-weight="bold"><text x="754" y="121" font-size="18">O</text><text x="700" y="171" font-size="14">H</text><text x="814" y="160" font-size="14">H</text></g>
+ <path d="M868 135C891 121 910 121 934 132" fill="none" stroke="#75d8d0" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 6"/>
+ <path d="M925 125L936 133L924 136" fill="none" stroke="#75d8d0" stroke-opacity=".6" stroke-width="1.5"/>
+ <circle cx="1011" cy="136" r="46" fill="#75d8d0" fill-opacity=".04" stroke="#75d8d0" stroke-width="1.5" stroke-dasharray="5 7"/>
+ <text x="1011" y="207" text-anchor="middle" fill="#9ee8dc" font-family="Arial,sans-serif" font-size="12" letter-spacing="2">SETTLE HERE</text>
+</svg>
