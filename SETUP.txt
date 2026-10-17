@@ -1,5 +1,10 @@
 NAJLA HOSSEINI — ION RESCUE / CHEMISTRY STORM / PHYSICS × ART
 
+AUTOMATIC PLAY EMAILS
+
+Prepared but not active: no recipient is configured. See PLAY_ALERTS.txt.
+No login, name, or email is requested from players.
+
 QUICK UPDATE OF YOUR EXISTING GITHUB PROFILE
 
 Extract this ZIP. From inside your local najla23/najla23 repository, on main:
@@ -112,7 +117,9 @@ Arsenic is a metalloid, so As* denotes arsenic-containing species rather
 than a free aqueous As3+ ion. Dissolved K+ is not potassium metal. The falling
 particles and ignition cores are fictional game rules; this game is not a
 chemistry safety guide, and water does not make toxic metals safe.
-It has no external game dependencies, analytics, login, or server component.
+The game has no login and runs without a server. Optional play emails use
+FormSubmit only after a recipient is configured and verified; see PLAY_ALERTS.txt.
+The supplied endpoint is blank, so notifications are not active yet.
 The profile hits badge and statistics cards still use external services.
 
 VALIDATION

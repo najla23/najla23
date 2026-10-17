@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#09141e">
+<!-- Set this public FormSubmit endpoint after the owner verifies the recipient. -->
+<meta name="nh-play-alert-endpoint" content="najla.hosseini@gmail.com">
 <meta name="description" content="A trapped potassium ion, falling toxic hazards, fatal ignition cores, and three difficult protein escape rooms. A physics, art, and chemistry arcade game by Najla Hosseini.">
 <title>Ion Rescue — Chemistry Storm · Najla Hosseini</title>
 <style>
@@ -44,7 +46,7 @@
   <div><p class="kicker">Physics × art × chemistry</p><h2 id="chemistryTitle">Let’s add chemistry to the game!</h2><p>Interested in taking this game further? You’re very welcome to contribute! Bring your ideas for molecules, reactions, and new challenges.</p><a href="https://github.com/najla23/najla23">Explore the project &amp; contribute ↗</a></div>
   <div class="hazard-key"><p><span class="chemical toxic">Pb²⁺ · Hg²⁺ · Cd²⁺ · As*</span><strong>Toxic rain</strong><small>Dodge the falling particles or use a temporary water shield.</small></p><p><span class="chemical fire">◇ IGNITION CORE</span><strong>Contact = flames + Game Over</strong><small>Keep clear. Water shields do not protect against these cores.</small></p><small class="scope">*As labels arsenic-containing species; arsenic is a metalloid.</small></div>
  </section>
- <footer class="footer"><p>An arcade game, not a chemistry safety guide or molecular simulation. Falling particles, water shields, and ignition cores are fictional game rules. Dissolved K⁺ is not potassium metal; water does not make toxic metals safe.</p><p>Made for curious minds. <a href="https://github.com/najla23">Meet Najla ↗</a></p></footer>
+ <footer class="footer"><p id="playAlertNotice" hidden>Starting a game sends Najla a play notification through FormSubmit, without your name or GitHub username.</p><p>An arcade game, not a chemistry safety guide or molecular simulation. Falling particles, water shields, and ignition cores are fictional game rules. Dissolved K⁺ is not potassium metal; water does not make toxic metals safe.</p><p>Made for curious minds. <a href="https://github.com/najla23">Meet Najla ↗</a></p></footer>
 </main>
 <script>
 'use strict';
@@ -199,13 +201,39 @@ function drawGame(ctx,g,reduced=false){
  ctx.textBaseline='alphabetic';ctx.textAlign='center';ctx.fillStyle='#bcece1';ctx.font='10px ui-monospace,monospace';if(g.state==='ready'){ctx.fillText('YOUR ION',p.x,p.y+48);rounded(ctx,310,470,340,37,18,'#17363e','#50716c');ctx.fillStyle='#d9e8df';ctx.font='13px system-ui';ctx.fillText('Move with arrows / WASD or hold to steer',480,494);}ctx.textAlign='left';ctx.fillStyle='#88a9ac';ctx.font='10px ui-monospace,monospace';ctx.fillText('TOXIC RAIN / NANOPORE 0'+(g.level+1),44,51);ctx.textAlign='right';ctx.fillText(g.hydration>0?'WATER SHIELD '+g.hydration.toFixed(1)+'s':'TARGET: PROTEIN '+g.room.protein,916,520);
  for(const e of g.effects){ctx.globalAlpha=clamp(e.life/.3,0,1);ctx.fillStyle=e.color;ctx.font='700 22px ui-monospace,monospace';ctx.textAlign='center';ctx.fillText(e.text,e.x,e.y-30-(1-e.life/e.max)*35);}ctx.globalAlpha=1;ctx.textBaseline='alphabetic';
 }
+// Optional play email. Blank endpoint means disabled; no request on page load.
+function makePlayAlert({endpoint='',send,storage,now=()=>Date.now()}={}){
+ const enabled=/^https:\/\/formsubmit\.co\/ajax\/[A-Za-z0-9@._%+\-]+$/.test(endpoint);
+ const key='nh-play-alert-last-attempt:'+endpoint,cooldown=30*60*1000;
+ let attempted=false;
+ return {enabled,async onPlay(){
+  if(!enabled||attempted)return 'skipped';
+  attempted=true;
+  const timestamp=now();
+  try{const previous=Number(storage?.getItem(key));if(previous>0&&timestamp>=previous&&timestamp-previous<cooldown)return 'cooldown';storage?.setItem(key,String(timestamp));}catch(e){}
+  // Record before posting: repeated movement/retries must not send a flood.
+  // A network error is deliberately not retried; delivery might have succeeded.
+  try{
+   const response=await send(endpoint,{method:'POST',mode:'cors',credentials:'omit',keepalive:true,referrerPolicy:'no-referrer',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({
+    _subject:'Someone started playing Ion Rescue',_template:'table',_captcha:'false',_honey:'',_url:'https://najla23.github.io/najla23/',
+    game:'Ion Rescue',event:'Game started',time_utc:new Date(timestamp).toISOString(),message:'Someone started playing your game. No player name or GitHub username was collected.'
+   })});
+   if(!response.ok)return 'unavailable';
+   const data=await response.json();return data.success===true||data.success==='true'?'accepted':'unavailable';
+  }catch(e){return 'unavailable';}
+ }};
+}
 if(typeof document!=='undefined'){
  const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),game=new EscapeGame();
+ const alertMeta=document.querySelector('meta[name="nh-play-alert-endpoint"]');
+ let alertStorage;try{alertStorage=window.sessionStorage;}catch(e){}
+ const playAlert=makePlayAlert({endpoint:alertMeta?alertMeta.content.trim():'',send:(...args)=>window.fetch(...args),storage:alertStorage});
+ $('playAlertNotice').hidden=!playAlert.enabled;
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const keys=new Set(),pads=new Map();let pointer=null,last=0,acc=0,lastState='',sound=false,audio=null,best=0,lastUi=-1;
  try{best=Number(localStorage.getItem('nh-ion-rescue-chemistry-v3-fast-best')||0);if(!Number.isFinite(best))best=0;}catch(e){}
  function tone(type){if(!sound)return;try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime,osc=audio.createOscillator(),gain=audio.createGain();osc.connect(gain);gain.connect(audio.destination);osc.type=type==='hit'?'sawtooth':'sine';osc.frequency.setValueAtTime(type==='hit'?140:type==='win'?650:820,now);osc.frequency.exponentialRampToValueAtTime(type==='hit'?60:1200,now+.17);gain.gain.setValueAtTime(.035,now);gain.gain.exponentialRampToValueAtTime(.001,now+.23);osc.start(now);osc.stop(now+.24);}catch(e){}}
- game.onEvent=e=>{$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win'].includes(e.type))tone(e.type==='ignite'?'hit':e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-chemistry-v3-fast-best',String(best));}catch(e){}}};
+ game.onEvent=e=>{if(e.type==='start'&&game.state==='running')void playAlert.onPlay();$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win'].includes(e.type))tone(e.type==='ignite'?'hit':e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-chemistry-v3-fast-best',String(best));}catch(e){}}};
  function clearInput(){keys.clear();pads.clear();pointer=null;}
  function resumeFocus(){clearInput();last=0;acc=0;canvas.focus({preventScroll:true});sync(true);}
  function sync(force=false){const t=Math.ceil(game.remaining);if(!force&&t===lastUi&&game.state===lastState&&game.state!=='running')return;lastUi=t;
