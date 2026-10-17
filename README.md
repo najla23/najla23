@@ -6,11 +6,6 @@
 
 # 👋 Hi, I'm Najla 🎨⛰️
 
-<p align="center">
-  <a href="https://hits.sh/github.com/najla23/">
-    <img src="https://hits.sh/github.com/najla23.svg?style=for-the-badge&amp;label=Profile%20hits&amp;color=68c7ca&amp;labelColor=101525" alt="Profile hits"/>
-  </a>
-</p>
 
 <p align="center">
   <a href="#research">🔬 Research</a> &nbsp; · &nbsp;
@@ -189,4 +184,9 @@ and occasionally arguing with convergence plots.
 
 ⭐ *Thanks for visiting — feel free to explore, clone, or cite responsibly.*  
 
+<p align="center">
+  <a href="https://hits.sh/github.com/najla23/">
+    <img src="https://hits.sh/github.com/najla23.svg?style=for-the-badge&amp;label=Profile%20hits&amp;color=68c7ca&amp;labelColor=101525" alt="Profile hits"/>
+  </a>
+</p>
 </div>
