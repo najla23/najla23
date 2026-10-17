@@ -26,12 +26,6 @@
 ♟️ Plays chess, 🧗‍♀️ climbs walls (indoors and out), and 🎬 watches mysterious movies that raise more questions than answers.  
 🎨 Writes poetry and paints in free time — because even scientists need creative escape velocity.
 
-</div>
-
-<p align="center"><img src="nh/divider.svg" width="100%" height="8" alt=""/></p>
-
-<div align="center">
-
 
 **Postdoctoral researcher working at the collision point of**  
 🧪 **Molecular Dynamics**, ⚛️ **Quantum Chemistry**, and 🤖 **Machine Learning**,  
