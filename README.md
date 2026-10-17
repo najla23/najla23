@@ -28,7 +28,7 @@
 
 </div>
 
-<p align="center"><img src="nh/divider.svg" width="100%" height="14" alt=""/></p>
+<p align="center"><img src="nh/divider.svg" width="100%" height="8" alt=""/></p>
 
 <div align="center">
 
@@ -36,14 +36,13 @@
 
 Inspired by the Persian poet :Khayyam:
 
-> "Get up and do not grieve over this passing world.  
-> Sit down and have a moment of joy."
+> "Get up and do not grieve over this passing world. > Sit down and have a moment of joy."
 
 And one of the greatest joys is programming while drinking coffee 😅☕💻
 
 </div>
 
-<p align="center"><img src="nh/divider.svg" width="100%" height="14" alt=""/></p>
+<p align="center"><img src="nh/divider.svg" width="100%" height="8" alt=""/></p>
 
 <div align="center">
 
