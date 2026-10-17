@@ -34,7 +34,7 @@ and occasionally arguing with convergence plots.
 
 </div>
 
-<p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
+<p align="center"><img src="nh/divider.svg" width="100%" height="4" alt=""/></p>
 
 <!-- NH_ION_GAME_START -->
 <a id="play"></a>
