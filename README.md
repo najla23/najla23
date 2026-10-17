@@ -14,6 +14,7 @@
 
 <p align="center">
   <a href="#research">🔬 Research</a> &nbsp; · &nbsp;
+  <a href="#play">⚛️ Play</a> &nbsp; · &nbsp;
   <a href="#publications">📄 Publications</a> &nbsp; · &nbsp;
   <a href="#tools">🛠️ Tools</a> &nbsp; · &nbsp;
   <a href="#activity">📈 Activity</a> &nbsp; · &nbsp;
@@ -52,6 +53,24 @@ building **methods, models, and simulations** for biological and materials scien
 and occasionally arguing with convergence plots.
 
 </div>
+
+<p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
+
+<a id="play"></a>
+
+## ⚛️ A Little Physics, a Little Play
+
+<p align="center">
+  <a href="https://najla23.github.io/najla23/">
+    <img src="nh/molecule-playground.svg" width="100%" alt="Play Molecular Playground: drag atoms, stretch bonds, and collect calm moments"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://najla23.github.io/najla23/"><strong>▶ Open Molecular Playground</strong></a><br/>
+  <sub>Drag atoms, paint with motion trails, or try a tiny molecule-settling challenge.</sub><br/>
+  <sub>A playful 2D spring model in arbitrary units.</sub>
+</p>
 
 <p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
 
