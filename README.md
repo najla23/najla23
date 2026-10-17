@@ -56,21 +56,24 @@ and occasionally arguing with convergence plots.
 
 <p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
 
+<!-- NH_ION_GAME_START -->
 <a id="play"></a>
 
-## ⚛️ A Little Physics, a Little Play
+## ⚛️ Ion Rescue — Water Is Your Way Out
 
 <p align="center">
   <a href="https://najla23.github.io/najla23/">
-    <img src="nh/molecule-playground.svg" width="100%" alt="Play Molecular Playground: drag atoms, stretch bonds, and collect calm moments"/>
+    <img src="nh/ion-rescue.gif" width="100%" alt="Animated Ion Rescue preview: a trapped potassium ion collects water, crosses a barrier, and reaches the correct protein."/>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://najla23.github.io/najla23/"><strong>▶ Open Molecular Playground</strong></a><br/>
-  <sub>Drag atoms, paint with motion trails, or try a tiny molecule-settling challenge.</sub><br/>
-  <sub>A playful 2D spring model in arbitrary units.</sub>
+  <strong>One trapped ion. Water escorts. The right protein.</strong><br/>
+  <sub>+50 for water · +300 for the target · −40 for traps · a 24-second final room.</sub><br/>
+  <a href="https://najla23.github.io/najla23/"><strong>▶ Play Ion Rescue</strong></a><br/>
+  <sub>The animation appears here automatically. The interactive game runs on GitHub Pages.</sub>
 </p>
+<!-- NH_ION_GAME_END -->
 
 <p align="center"><img src="nh/divider.svg" width="100%" height="24" alt=""/></p>
 

@@ -1,62 +1,97 @@
-NAJLA HOSSEINI — PHYSICS × ART + MOLECULAR PLAYGROUND
+NAJLA HOSSEINI — ION RESCUE / PHYSICS × ART
 
-1. Upload README.md, nh/, and docs/ from this package to najla23/najla23.
-   Keep the folder structure. The complete original profile text is preserved.
-2. In that repository, open Settings > Pages.
-3. Select Deploy from a branch, select the branch containing these files
-   (normally main), choose /docs, and Save.
-4. When GitHub finishes deployment, the game will be at:
-   https://najla23.github.io/najla23/
-   The README launch card already points to this address.
+QUICK UPDATE OF YOUR EXISTING GITHUB PROFILE
 
-If your repository uses a custom domain or a different Pages publishing
-configuration, use the address shown in Settings > Pages and update the two
-launch links in README.md. If docs/index.html already holds another site,
-keep that file and put this game at docs/molecule-playground.html instead;
-then point the README launch links to that filename under your Pages address.
+Extract this ZIP. From inside your local najla23/najla23 repository, on main:
 
-READMEs cannot run this JavaScript game directly. The README contains a
-clickable illustration. The game runs on GitHub Pages or locally in a browser.
-For an offline copy, open docs/index.html directly in a modern browser.
-The separately provided Molecule_Playground.html contains the identical game.
+  python3 /path/to/extracted/package/install_ion_game.py .
+  git diff --stat
+  git add README.md docs/index.html docs/.nojekyll nh/ion-rescue.gif
+  git commit -m "Add Ion Rescue and animated profile preview"
+  git push origin main
 
-GAME
-Drag atoms using a mouse or touch. Adjust molecular motion and bond firmness.
-Try water, carbon dioxide, or a flexible bead chain. Toggle trails, shake,
-pause, reset, or use keyboard controls shown below the canvas.
-In Tiny challenge, guide the gold-ringed atom into the target and release it.
-Its whole molecule must remain calm for two seconds to collect the target.
-The challenge lowers the motion setting to make settling practical.
-Reduced-motion users start with the simulation paused and trails off.
+The installer copies the game and animation, and adds a marked game section
+at the top of your existing README. It preserves the rest of your writing.
+On later runs, it replaces only its marked section. It backs up existing
+files inside .git/nh-game-backups. It does not commit, push, or change Pages
+settings. It checks that your Git origin is najla23/najla23 and your branch
+is main. Review the files before committing, especially if you have other
+staged changes. Your existing nh/ graphics and research content are kept.
 
-This is an illustrative 2D toy using spring bonds, damping, soft collisions,
-and random kicks. Controls, masses, lengths, and times use arbitrary units.
-It does not implement a validated molecular force field or chemical reactivity.
-There are no external game dependencies, account requirements, or API keys.
-No network requests are made by the game unless the profile link is clicked.
+Alternatively, this package includes the complete styled README, nh/ assets,
+and docs/ website for a manual update. Your original profile prose and DOI
+links remain in that complete README. The game section is updated.
 
-FILES
-README.md
-nh/physics-art.svg
-nh/divider.svg
-nh/molecule-playground.svg
-docs/index.html
-docs/.nojekyll
-banner-preview.png
-SETUP.txt
+Your Pages source is already configured as main /docs. After the new commit
+has deployed, open:
+  https://najla23.github.io/najla23/
+If the previous version appears, refresh the page without using the cache.
 
-PROFILE
-The hits counter and profile statistics cards still use third-party services.
-The hits badge counts image requests, not unique people or historical traffic.
+WHAT APPEARS WHERE
+
+GitHub profile (github.com/najla23): an animated GIF preview appears directly
+inside the README. It is an animation of a real successful game playthrough,
+not an interactive canvas. GitHub sanitizes scripts in README content, so a
+playable JavaScript game cannot be embedded there. The image links to the game.
+
+GitHub Pages (najla23.github.io/najla23/): the full interactive game is visible
+immediately, with no separate launch screen. The timer begins on movement.
+
+Local/offline: open docs/index.html, or the separately provided
+Molecule_Playground.html (the same updated Ion Rescue game), in a browser.
+
+THE GAME
+
+You control a potassium ion (K+). It starts trapped and must reach the green
+marked protein. The other protein is a decoy. Water escorts help the ion.
+
+Room 1: hydration cage, 55 seconds, Protein A.
+Room 2: decoy corridor, 50 seconds, Protein B.
+Room 3: final lock, 24 seconds, Protein B; moving traps and barriers that
+open for only 0.9 seconds in each 4.4-second cycle.
+
+Collect water: +50 points and a temporary shield. A shield reduces trap pull,
+prevents trap damage, and lets the ion pass through an active barrier.
+Shields last 6 seconds in rooms 1 and 2, and 4 seconds in the final room.
+They do not protect against choosing the wrong protein.
+Reach the correct protein: +300 points.
+Finish without trap/decoy hits: +100 points.
+Each whole second left: +2 points.
+Hit an active trap, barrier, or wrong protein: -40 points and -1 stability.
+Three hits or an expired timer: GAME OVER, followed by "Try it later!"
+Brief hit immunity prevents multiple hits from one contact.
+Retry resets only the current room's score and time; previous room scores stay.
+Best score is stored only in the browser, where local storage is available.
+
+Move: arrows or WASD; hold a point in the room to steer toward it.
+Burst: Space or the Burst button, with a 3-second recharge.
+Pause: P or Pause. Retry: R or Retry. Touch controls are provided.
+Backgrounding the page pauses gameplay. Sound is off until enabled.
+Reduced-motion preferences reduce decorative animation without changing rules.
+
+SCIENTIFIC SCOPE
+
+This is an arcade game with explicit positive and negative reinforcement of
+player choices through a fixed score system. It uses inertia, drag, collision
+responses, and attractive trap forces in illustrative units. Water shielding,
+barriers, target proteins, and docking scores are game mechanics; they are not
+quantitative hydration, binding, molecular dynamics, or force-field results.
+It has no external game dependencies, analytics, login, or server component.
+The profile hits badge and statistics cards still use external services.
 
 VALIDATION
-All original prose and 10 DOI links were preserved. JavaScript syntax,
-finite/bounded motion at maximum settings, restoring spring forces,
-challenge scoring/release, startup, controls, keyboard handlers, pointer
-drag/cancel/release, and native Canvas 2D drawing passed local checks. Browser layout, touch behaviour on actual devices, and GitHub
-Pages deployment have not been verified. No changes were pushed to GitHub.
+
+All three rooms were completed through ordinary movement in a deterministic
+playthrough. Engine checks covered rewards paid once, water shields, barrier
+passage, decoy penalties, hit immunity, failure, the final 24-second timeout,
+retry, pause, and finite/bounded motion. Native Canvas 2D rendering and a DOM
+test harness checked keyboard/touch events, pointer cancel, the direction pad,
+burst recharge, pause/resume, loss of focus, Game Over text, and retry.
+The animated preview was rendered from the actual game engine.
+The installer was checked for preserved README content and repeatable updates.
+A full browser layout or real-device touch test was not available. These new
+files have not been pushed or deployed to GitHub by the assistant.
 
 REFERENCES
-https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 https://github.com/github/markup
-https://github.com/silentsoft/hits
+https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
