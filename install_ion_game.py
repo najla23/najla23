@@ -111,7 +111,7 @@ def main():
     print("Review and publish:")
     print("git diff --stat")
     print("git add README.md docs/index.html docs/.nojekyll nh/ion-rescue.gif")
-    print('git commit -m "Rebalance Ion Rescue and add protein reactions"')
+    print('git commit -m "Add five Ion Rescue worlds and selectable hydrated ions"')
     print("git push origin main")
 
 
