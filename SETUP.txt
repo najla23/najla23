@@ -56,7 +56,7 @@ still until the player moves. Walls intercept rain. Water blocks toxic hits.
                         Room 1       Room 2       Room 3
 Timer                   60 seconds   60 seconds   60 seconds
 Lives                   4            3            2
-Water shield            4 seconds    3 seconds    2 seconds
+Water shield            8 seconds    3 seconds    2 seconds
 Initial drops           4            5            6
 Spawn interval          1.05 s       0.65 s       0.42 s
 Base fall speed         130          170          215
@@ -80,8 +80,10 @@ THE GAME
 You control a potassium ion (K+). It starts trapped and must reach the green
 marked protein. The other protein is a decoy. Water escorts help the ion.
 
-Room 1: moderate pressure cage, Protein A, wider 96-unit cage exit,
-        gentler traps, 0.6-second hold inside a 26-unit protein pocket.
+Room 1: moderate pressure cage, Protein A, wide 160-unit cage exit,
+        water directly ahead at the start, gentler traps, 0.6-second hold
+        inside a 26-unit protein pocket. Follow WATER → EXIT; the shield
+        protects you while crossing the cage barrier.
 Room 2: challenging decoy corridor, Protein B, three stronger traps,
         0.8-second hold inside a 22-unit protein pocket.
 Room 3: hard final lock, Protein B, strong traps and moving target,
@@ -93,7 +95,7 @@ cross a briefly open barrier, then brake before docking.
 
 Collect water: +50 points and a temporary shield. A shield reduces trap pull,
 prevents trap damage, and lets the ion pass through an active barrier.
-Shields last 4 seconds in room 1, 3 seconds in room 2, and 2 seconds
+Shields last 8 seconds in room 1, 3 seconds in room 2, and 2 seconds
 in the final room.
 They do not protect against choosing the wrong protein or touching an ignition core.
 Every room contains two proteins: the green target and the purple decoy.
@@ -137,6 +139,9 @@ The profile hits badge and statistics cards still use external services.
 
 VALIDATION
 
+A focused movement check verified that the ion can leave the first cage
+by holding right, collecting the water on the route, and crossing the
+barrier under its eight-second shield without damage.
 Automated game-engine checks completed all three rooms using movement inputs,
 verified 60-second timers, pause/retry behavior, progressively increasing rain,
 and correct/decoy reactions. A DOM event harness checked keyboard and pointer

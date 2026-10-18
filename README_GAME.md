@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <strong>60 seconds per room. A moderate start. A tougher storm with every level.</strong><br/>
+  <strong>60 seconds per room. An easy cage exit. A tougher storm with every level.</strong><br/>
   <sub>+50 water · +300 correct protein · wrong protein = red recoil / −40 · ignition cores = Game Over.</sub><br/>
   <a href="https://najla23.github.io/najla23/"><strong>▶ Play Ion Rescue</strong></a><br/>
   <sub>The animation appears here automatically. The interactive game runs on GitHub Pages.</sub>

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Configure a public FormSubmit destination; never use an API secret here.
+
 Run before install_ion_game.py, or pass --html /path/to/docs/index.html.
 The default endpoint is blank, so the delivered game sends nothing yet.
 """
