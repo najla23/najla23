@@ -366,7 +366,7 @@ const MUSIC_THEMES=[
 class OdysseyMusic{
  constructor(createContext){this.createContext=createContext;this.ctx=null;this.enabled=false;this.visible=true;this.volume=.45;this.level=0;this.phase='ready';this.remaining=60;this.hydrated=false;this.species='K';this.timer=null;this.voices=new Set();this.tick=0;this.next=0;this.generation=0;}
  get theme(){return MUSIC_THEMES[this.level];}
- get playing(){return this.enabled&&this.visible&&['ready','running'].includes(this.phase);}
+ get playing(){return this.enabled&&this.visible&&this.phase!=='paused';}
  build(){
   if(this.ctx)return;
   const a=this.createContext();this.ctx=a;
@@ -378,6 +378,8 @@ class OdysseyMusic{
   this.master.connect(this.compressor);this.compressor.connect(a.destination);
   // Reusable deterministic noise avoids buffers being allocated for every drum.
   this.noise=a.createBuffer(1,a.sampleRate,a.sampleRate);let seed=72341;const data=this.noise.getChannelData(0);for(let i=0;i<data.length;i++){seed=(1664525*seed+1013904223)>>>0;data[i]=seed/2147483648-1;}
+  // Browsers may suspend audio independently of the game's music preference.
+  a.onstatechange=()=>{if(a.state==='running'){this.applyVolume();this.ensureTransport();}else this.halt();};
  }
  ramp(param,value,duration=.06){if(!this.ctx)return;const t=this.ctx.currentTime;param.cancelScheduledValues(t);param.setValueAtTime(param.value,t);param.linearRampToValueAtTime(value,t+duration);}
  async setEnabled(enabled){
@@ -435,7 +437,7 @@ class OdysseyMusic{
   while(this.next<now+.14&&count++<10){this.compose(this.tick,this.next);const urgency=this.phase==='running'&&this.remaining<15?1.08:1;this.next+=60/(this.theme.bpm*urgency)/4;this.tick++;}
  }
  compose(tick,at){
-  const theme=this.theme,bar=Math.floor(tick/16),step=tick%16,chord=theme.chords[bar%4],beat=60/theme.bpm,ready=this.phase==='ready',energy=ready?.45:1,urgent=!ready&&this.remaining<15;
+  const theme=this.theme,bar=Math.floor(tick/16),step=tick%16,chord=theme.chords[bar%4],beat=60/theme.bpm,ready=this.phase!=='running',energy=ready?.45:1,urgent=!ready&&this.remaining<15;
   if(step===0){this.pad(chord.map(n=>theme.root+n+12),at,beat*4);this.note(theme.root+chord[0]-12,at,beat*1.65,.19*energy,'sine',0,'music',650);}
   if(!ready&&(step===8||(this.level>=2&&step===11)))this.note(theme.root+chord[0]-12+(step===11?7:0),at,beat*.7,.14,'triangle',0,'music',650);
   // A harmonic pulse, a composed melody, and long-form arrangement changes.
@@ -479,20 +481,26 @@ if(typeof document!=='undefined'){
  function syncMusic(){
   soundtrack.update({level:game.level,state:game.state,remaining:game.remaining,hydrated:game.hydration>0,species:game.speciesKey});
   $('musicTrack').textContent=MUSIC_THEMES[game.level].name;
-  $('musicStatus').textContent=!musicWanted?'Music muted · tap ♫ Music to listen':!soundtrack.enabled?'Music starts with your first move':!soundtrack.visible||game.state==='paused'?'Music paused':soundtrack.volume===0?'Volume muted':soundtrack.playing?(game.remaining<15?'Final countdown · '+MUSIC_THEMES[game.level].style:MUSIC_THEMES[game.level].style):'Ready for your next adventure';
-  $('musicBars').className='equalizer'+(soundtrack.playing&&soundtrack.volume>0?' playing':'');
+  $('musicStatus').textContent=!musicWanted?'Music muted · tap ♫ Music to listen':!soundtrack.enabled?'Music starts with your next move or tap':!soundtrack.visible||game.state==='paused'?'Music paused':soundtrack.ctx?.state!=='running'?'Music waiting · tap to resume':soundtrack.volume===0?'Volume muted':game.state==='running'?(game.remaining<15?'Final countdown · '+MUSIC_THEMES[game.level].style:MUSIC_THEMES[game.level].style):'Interlude · '+MUSIC_THEMES[game.level].style;
+  $('musicBars').className='equalizer'+(soundtrack.playing&&soundtrack.ctx?.state==='running'&&soundtrack.volume>0?' playing':'');
   $('sound').textContent=musicWanted?'♫ Music on':'♫ Music off';$('sound').setAttribute('aria-pressed',String(musicWanted));$('sound').setAttribute('aria-label',musicWanted?'Mute music and sound effects':'Enable music and sound effects');
  }
 
+ function resumeMusicFromGesture(){
+  if(!musicWanted||document.hidden||game.state==='paused')return;
+  soundtrack.setVisible(true);
+  if(!soundtrack.enabled||soundtrack.ctx?.state!=='running'){
+   void soundtrack.setEnabled(true).then(()=>syncMusic()).catch(()=>{syncMusic();$('feedback').textContent='Music is waiting for audio access. Move or tap again to retry.';});
+  }else syncMusic();
+ }
  function startMusicOnPlay(){
   if(!['ready','running'].includes(game.state))return;
-  game.start();syncMusic();
-  if(musicWanted&&!soundtrack.enabled){void soundtrack.setEnabled(true).then(()=>syncMusic()).catch(()=>{musicWanted=false;syncMusic();$('feedback').textContent='Music could not start. Tap ♫ Music to try again.';});}
+  game.start();syncMusic();resumeMusicFromGesture();
  }
 
  game.onEvent=e=>{if(e.type==='start'&&game.state==='running')void playAlert.onPlay();$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win','fail','burst'].includes(e.type))tone(e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-odyssey-v5-best',String(best));}catch(e){}}};
  function clearInput(){keys.clear();pads.clear();pointer=null;}
- function resumeFocus(){clearInput();last=0;acc=0;canvas.focus({preventScroll:true});sync(true);}
+ function resumeFocus(){clearInput();last=0;acc=0;canvas.focus({preventScroll:true});sync(true);resumeMusicFromGesture();}
  function sync(force=false){syncMusic();const t=Math.ceil(game.remaining),uiState=['won','complete'].includes(game.state)&&game.proteinReaction?.kind==='correct'&&game.proteinReaction.age<1.25?'celebrating':game.state;if(!force&&t===lastUi&&uiState===lastState&&game.state!=='running')return;lastUi=t;
   $('roomLabel').textContent='ROOM 0'+(game.level+1)+' / 05';$('roomName').textContent=game.room.name;$('score').textContent=game.score;$('health').textContent='●'.repeat(game.health)+'○'.repeat(game.room.lives-game.health);$('health').setAttribute('aria-label',game.health+' hits remaining');$('time').textContent=Math.floor(t/60)+':'+String(t%60).padStart(2,'0');$('time').style.color=t<12?'#ff8b78':'';$('sparks').textContent=game.collected.size+' / '+game.room.sparks.length;$('missionTitle').textContent=game.room.mission;$('missionText').textContent=game.room.hint;$('best').textContent=best||'—';$('cooldown').value=1-game.cooldown/4;$('dockProgress').value=game.dockHold/game.room.dock;$('dockValue').textContent=game.dockHold.toFixed(1)+' / '+game.room.dock+'s';$('burstStatus').textContent=game.cooldown>0?'CHARGING':'BURST READY';$('burst').disabled=game.cooldown>0||['paused','burning','won','complete','failed'].includes(game.state);$('pause').textContent=game.state==='paused'?'Resume':'Pause';$('pause').setAttribute('aria-label',game.state==='paused'?'Resume game':'Pause game');
   $('gameCard').style.setProperty('--room-accent',THEMES[game.level].accent);$('gameCard').style.setProperty('--room-panel',THEMES[game.level].panel);
@@ -524,8 +532,8 @@ if(typeof document!=='undefined'){
  canvas.addEventListener('pointerdown',e=>{if(pointer!==null||!['ready','running'].includes(game.state))return;e.preventDefault();canvas.focus({preventScroll:true});const p=point(e);pointer={id:e.pointerId,...p};canvas.setPointerCapture(e.pointerId);startMusicOnPlay();});
  canvas.addEventListener('pointermove',e=>{if(pointer&&pointer.id===e.pointerId){Object.assign(pointer,point(e));e.preventDefault();}});
  function release(e){if(pointer&&pointer.id===e.pointerId)pointer=null;}
- canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
- document.querySelectorAll('[data-move]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();canvas.focus({preventScroll:true});pads.set(e.pointerId,b.dataset.move);b.setPointerCapture(e.pointerId);startMusicOnPlay();});for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,e=>pads.delete(e.pointerId));});
+ canvas.addEventListener('pointerup',e=>{release(e);resumeMusicFromGesture();});canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
+ document.querySelectorAll('[data-move]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();canvas.focus({preventScroll:true});pads.set(e.pointerId,b.dataset.move);b.setPointerCapture(e.pointerId);startMusicOnPlay();});for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,e=>{pads.delete(e.pointerId);if(event==='pointerup')resumeMusicFromGesture();});});
  function getInput(){let x=(keys.has('ArrowRight')||keys.has('d')?1:0)-(keys.has('ArrowLeft')||keys.has('a')?1:0),y=(keys.has('ArrowDown')||keys.has('s')?1:0)-(keys.has('ArrowUp')||keys.has('w')?1:0);for(const dir of pads.values()){if(dir==='left')x--;if(dir==='right')x++;if(dir==='up')y--;if(dir==='down')y++;}if(pointer&&x===0&&y===0){x=clamp((pointer.x-game.p.x)*.065-game.p.vx*.006,-1,1);y=clamp((pointer.y-game.p.y)*.065-game.p.vy*.006,-1,1);}return{x,y};}
  function frame(now){if(last===0)last=now;const dt=Math.min((now-last)/1000,.05);last=now;if(!document.hidden){acc+=dt;while(acc>=DT){game.step(DT,getInput());acc-=DT;}}else acc=0;drawGame(ctx,game,reduced);sync();requestAnimationFrame(frame);}
  function blur(){soundtrack.setVisible(false);clearInput();if(game.state==='running')game.pause();last=0;acc=0;sync(true);}
