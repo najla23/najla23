@@ -1,16 +1,17 @@
 <!-- NH_ION_GAME_START -->
 <a id="play"></a>
 
-## ⚛️ Ion Rescue — Chemistry Storm
+## ⚛️ Ion Rescue — The Hydration Odyssey
 
 <p align="center">
   <a href="https://najla23.github.io/najla23/">
-    <img src="nh/ion-rescue.gif" width="100%" alt="Ion Rescue gameplay: dodge falling toxic hazards, use water shields, reach the protein, and avoid fatal ignition cores."/>
+    <img src="nh/ion-rescue.gif" width="100%" alt="Ion Rescue: Li, Na, and K characters journey through a biogarden, ice vault, amber reactor, neon laboratory, and orbital observatory. Animated gameplay preview."/>
   </a>
 </p>
 
 <p align="center">
-  <strong>60 seconds per room. An easy cage exit. A tougher storm with every level.</strong><br/>
+  <strong>Three ion heroes. Five extraordinary rooms. 60 seconds to find your protein.</strong><br/>
+  <sub>Crimson Li⁺ · golden Na⁺ · lilac K⁺ — choose your character and its water entourage.</sub><br/>
   <sub>+50 water · +300 correct protein · wrong protein = red recoil / −40 · ignition cores = Game Over.</sub><br/>
   <a href="https://najla23.github.io/najla23/"><strong>▶ Play Ion Rescue</strong></a><br/>
   <sub>The animation appears here automatically. The interactive game runs on GitHub Pages.</sub>

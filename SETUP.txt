@@ -1,159 +1,150 @@
-NAJLA HOSSEINI — ION RESCUE / CHEMISTRY STORM / PHYSICS × ART
-
-AUTOMATIC PLAY EMAILS
-
-Prepared but not active: no recipient is configured. See PLAY_ALERTS.txt.
-No login, name, or email is requested from players.
+NAJLA HOSSEINI — ION RESCUE / THE HYDRATION ODYSSEY
 
 QUICK UPDATE OF YOUR EXISTING GITHUB PROFILE
 
-Extract this ZIP. From inside your local najla23/najla23 repository, on main:
+Extract the whole ZIP. From inside your local najla23/najla23 repository,
+on main, run:
 
   python3 /path/to/extracted/package/install_ion_game.py .
   git diff --stat
   git add README.md docs/index.html docs/.nojekyll nh/ion-rescue.gif
-  git commit -m "Rebalance Ion Rescue and add protein reactions"
+  git commit -m "Add five Ion Rescue worlds and selectable hydrated ions"
   git push origin main
 
-The installer copies the game and animation, and adds a marked game section
-at the top of your existing README. It preserves the rest of your writing.
-On later runs, it replaces only its marked section. It backs up existing
-files inside .git/nh-game-backups. It retains an existing play-email endpoint when the new package has none.
-It does not commit, push, or change Pages
-settings. It checks that your Git origin is najla23/najla23 and your branch
-is main. Review the files before committing, especially if you have other
-staged changes. Your existing nh/ graphics and research content are kept.
+The installer updates docs/index.html, the animated nh/ion-rescue.gif,
+and only the marked game section of your README. The rest of your writing
+is preserved. Existing files are backed up in .git/nh-game-backups.
+An existing play-email endpoint is retained when this update has none.
+The installer does not commit, push, or change Pages settings itself.
 
-Alternatively, this package includes the complete styled README, nh/ assets,
-and docs/ website for a manual update. Your original profile prose and DOI
-links remain in that complete README. The game section is updated.
+For a game-only manual update, replace docs/index.html with the included
+complete docs/index.html. The separately provided Molecule_Playground.html
+is byte-identical: it can be renamed to index.html and put in docs/.
+If you configured a play-email recipient, preserve the content value of
+<meta name="nh-play-alert-endpoint" ...> when updating manually.
 
-Your Pages source is already configured as main /docs. After the new commit
-has deployed, open:
+This package targets the established main /docs Pages setup. After deploying:
   https://najla23.github.io/najla23/
-If the previous version appears, refresh the page without using the cache.
 
 WHAT APPEARS WHERE
 
-GitHub profile (github.com/najla23): an animated GIF preview appears directly
-inside the README. It is an animation of gameplay with the moderate first-room rain,
-not an interactive canvas. GitHub sanitizes scripts in README content, so a
-playable JavaScript game cannot be embedded there. The image links to the game.
+GitHub profile: nh/ion-rescue.gif is an automatically displayed animated
+preview of all five rooms. GitHub README content does not run JavaScript.
+Clicking the preview opens the interactive game on GitHub Pages.
+GitHub Pages: the full game is visible immediately. Choose a hero, then move.
+Local/offline: open docs/index.html or Molecule_Playground.html in a browser.
+The game needs no external assets or libraries. Its science/source links,
+optional play alerts, and GitHub profile badges require network access.
 
-GitHub Pages (najla23.github.io/najla23/): the full interactive game is visible
-immediately, with no separate launch screen. The timer begins on movement.
+NEW IN THIS VERSION
 
-Local/offline: open docs/index.html, or the separately provided
-Molecule_Playground.html (the same updated Ion Rescue game), in a browser.
+1. The correct and wrong protein positions have been swapped in the original
+   three rooms. Rooms 1-3 now have the target at the lower right and the decoy
+   above. Room 4 reverses that arrangement; room 5 returns to a lower target.
+2. Room 1's base toxic fall speed rises from 130 to 150 game units/second,
+   about 15% faster. Its wide cage exit and water shielding remain.
+3. Five different rooms have distinct colours, materials and decoration:
+   - Biogarden: green light, leaves, vines and drifting spores.
+   - Ice vault: blue light, glacier shards and frozen architectural ribs.
+   - Amber reactor: brass gears, pressure gauges and copper pipes.
+   - Neon synapse: violet/pink circuits and molecular holograms.
+   - Orbital observatory: stars, a ringed planet and a panoramic window.
+4. Play as Li+, Na+ or K+. Each has a face, gloves, boots, costume and its own
+   accessory. Toxic particles also have expressive faces and limbs.
+5. A visible water entourage orbits the player while shielded. Oxygen sites
+   face inward toward the positive ion. A meter shows protection remaining.
 
-NEW IN CHEMISTRY STORM
+HERO SELECTION AND HYDRATION
 
-Four labelled toxic hazards fall from the first move: Pb2+, Hg2+, Cd2+,
-and As* (arsenic-containing species). The first room now has moderate rain;
-later rooms increase both falling speed and frequency. Initial hazards stay
-still until the player moves. Walls intercept rain. Water blocks toxic hits.
+Choose a hero before the first move in any room. Selection locks once play
+starts; Retry resets the current attempt and lets you choose again. Entering
+another room also unlocks selection. Progress from earlier rooms is retained.
 
-                        Room 1       Room 2       Room 3
-Timer                   60 seconds   60 seconds   60 seconds
-Lives                   4            3            2
-Water shield            8 seconds    3 seconds    2 seconds
-Initial drops           4            5            6
-Spawn interval          1.05 s       0.65 s       0.42 s
-Base fall speed         130          170          215
-Maximum fall speed      230          300          370
-Speeds are illustrative game units per second. Individual drops start up to
-30 units/s above the base speed; they accelerate toward the room's speed cap.
-The first new drop arrives after 1.0, 0.8, or 0.6 seconds respectively.
+Hero       Costume palette     Movement multiplier    Shield multiplier
+Li+        Crimson             0.90                   1.50
+Na+        Golden yellow       0.97                   1.20
+K+         Lilac               1.06                   1.00
 
-Two orange ignition cores are present in every room. Touching one costs
-80 points and ends the attempt, even with a water shield. A short flame
-animation plays before GAME OVER / "Up in flames." / "Try it later!"
-This is a fictional arcade reaction, not an actual K+ reaction.
+Room                    1        2        3        4        5
+Time, seconds           60       60       60       60       60
+Lives                   4        3        3        3        2
+Base shield, seconds    8        4        3        2.6      2.2
+Initial toxic drops     4        5        6        6        7
+Spawn interval, s       1.05     0.72     0.58     0.48     0.40
+Base fall speed         150      175      195      215      235
+Maximum fall speed      255      300      335      365      395
+Docking hold, s         0.60     0.80     0.85     1.00     1.05
 
-A new invitation below the game says:
-"Let’s add chemistry to the game! Interested in taking this game further?
-You’re very welcome to contribute! Bring your ideas for molecules,
-reactions, and new challenges."
+Water gives the room's base duration multiplied by the selected hero's shield
+multiplier. For example, room 1 gives Li+ 12 seconds, Na+ 9.6 seconds, or K+
+8 seconds. A pickup renews the shield; it does not stack unlimited time.
+Speed values, durations, and all multipliers are gameplay parameters.
+Individual drops start slightly above the listed base speed and accelerate.
+Rain starts with movement. Walls intercept it; shields block toxic hits.
 
-THE GAME
+RULES AND CONTROLS
 
-You control a potassium ion (K+). It starts trapped and must reach the green
-marked protein. The other protein is a decoy. Water escorts help the ion.
+Arrows / WASD: move. Hold a point on the canvas: steer toward it.
+Space / Burst: dash, with a four-second recharge.
+P / Pause: pause. R / Retry: retry this room. Touch controls are included.
+The page pauses when backgrounded. Sound is off until enabled. Decorative
+motion is reduced when the browser requests reduced motion.
 
-Room 1: moderate pressure cage, Protein A, wide 160-unit cage exit,
-        water directly ahead at the start, gentler traps, 0.6-second hold
-        inside a 26-unit protein pocket. Follow WATER → EXIT; the shield
-        protects you while crossing the cage barrier.
-Room 2: challenging decoy corridor, Protein B, three stronger traps,
-        0.8-second hold inside a 22-unit protein pocket.
-Room 3: hard final lock, Protein B, strong traps and moving target,
-        1-second hold inside an 18-unit pocket. Each gate opens for 1 second
-        in a 4.4-second cycle; water also allows safe passage.
-Docking requires remaining inside the pocket at a speed below 60 game units/s.
-The hold resets if you leave the pocket or move too fast. Time a burst to
-cross a briefly open barrier, then brake before docking.
+Collect water: +50 points and a temporary shield. Shields reduce trap pull,
+prevent trap damage, and allow crossing active barriers. They do not prevent
+wrong-protein penalties or ignition-core deaths.
+Wrong protein: red rings, broken-bond sparks, knockback, -40 points, -1 life.
+Correct protein: hold still in its marked green pocket. It gives +300, a green
+celebration, +2 per whole second left, and +100 for a damage-free rescue.
+A brief celebration appears before the score dialog and next-room button.
+Docking resets if you leave the pocket or move too quickly.
+Orange ignition cores: -80, flames, and Game Over even with a water shield.
+No lives or no time: Game Over / Try it later! Retry restarts this room.
+The fifth rescue completes the adventure. Play again starts at room 1.
+Best scores use a new localStorage key so earlier three-room scores do not mix.
 
-Collect water: +50 points and a temporary shield. A shield reduces trap pull,
-prevents trap damage, and lets the ion pass through an active barrier.
-Shields last 8 seconds in room 1, 3 seconds in room 2, and 2 seconds
-in the final room.
-They do not protect against choosing the wrong protein or touching an ignition core.
-Every room contains two proteins: the green target and the purple decoy.
-Wrong protein: red repulsion rings, broken-bond sparks, a clear WRONG PROTEIN
-banner, physical knockback, -40 points and -1 life. Hit immunity prevents
-multiple penalties on the same instant contact.
-Correct protein: a green binding halo, gold/teal sparks, a check mark, and
-CORRECT PROTEIN / Binding complete. The celebration plays for 1.25 seconds
-before the score dialog and next-room button appear.
-Reach the correct protein: +300 points.
-Finish without damage: +100 points.
-Each whole second left: +2 points.
-Hit toxic rain, an active trap, barrier, or wrong protein: -40 points and -1 stability.
-Losing all lives or running out of time: GAME OVER, followed by "Try it later!"
-One second of hit immunity prevents multiple hits from one instant contact.
-Retry resets only the current room's score and time; previous room scores stay.
-60-second edition best scores are stored separately from earlier game versions,
-only in the browser where local storage is available.
+CHEMISTRY NOTES
 
-Move: arrows or WASD; hold a point in the room to steer toward it.
-Burst: Space or the Burst button, with a 4-second recharge.
-Pause: P or Pause. Retry: R or Retry. Touch controls are provided.
-Backgrounding the page pauses gameplay. Sound is off until enabled.
-Reduced-motion preferences reduce decorative animation without changing rules.
+Aqueous Li+, Na+ and K+ are colourless. The characters' screen colours are
+artistic approximations of the elements' familiar flame-test colours, not
+exact reproductions of emission spectra. The toxic characters' palettes are
+fictional; they are not proposed aqueous-ion colours or spectral measurements.
 
-SCIENTIFIC SCOPE
+The hydration trend Li+ > Na+ > K+ informs the relative shield durations.
+Water oxygen points toward the positive ion. The number of drawn waters and
+rings is illustrative and does not assert a particular coordination number.
+Faster movement, temporary shielding, attractive traps and ignition cores are
+arcade mechanics, not quantitative molecular-dynamics or binding predictions.
+Arsenic is a metalloid; As* denotes arsenic-containing species. Dissolved
+alkali cations are not alkali metal. Water does not make toxic metals safe.
 
-This is an arcade game with explicit positive and negative reinforcement of
-player choices through a fixed score system. It uses inertia, drag, collision
-responses, and attractive trap forces in illustrative units. Water shielding,
-barriers, target proteins, and docking scores are game mechanics; they are not
-quantitative hydration, binding, molecular dynamics, or force-field results.
-Arsenic is a metalloid, so As* denotes arsenic-containing species rather
-than a free aqueous As3+ ion. Dissolved K+ is not potassium metal. The falling
-particles and ignition cores are fictional game rules; this game is not a
-chemistry safety guide, and water does not make toxic metals safe.
-The game has no login and runs without a server. Optional play emails use
-FormSubmit only after a recipient is configured and verified; see PLAY_ALERTS.txt.
-The supplied endpoint is blank, so notifications are not active yet.
-The profile hits badge and statistics cards still use external services.
+The invitation to contribute remains beneath the game:
+Let’s add chemistry to the game! Interested in taking this game further?
+You’re very welcome to contribute! Bring your ideas for molecules, reactions,
+and new challenges.
+
+OPTIONAL PLAY EMAILS
+
+No recipient is configured in the supplied game. See PLAY_ALERTS.txt to set
+one up. No name or GitHub username is collected. No notification is sent on
+page load; the optional alert happens on actual play and is rate-limited.
+No real emails were sent during verification.
 
 VALIDATION
 
-A focused movement check verified that the ion can leave the first cage
-by holding right, collecting the water on the route, and crossing the
-barrier under its eight-second shield without damage.
-Automated game-engine checks completed all three rooms using movement inputs,
-verified 60-second timers, pause/retry behavior, progressively increasing rain,
-and correct/decoy reactions. A DOM event harness checked keyboard and pointer
-controls, feedback, the delayed win dialog, Game Over, and next-room reset.
-The animated preview is rendered from actual first-room gameplay, including
-one deliberate wrong-protein contact followed by successful docking.
-Optional email behavior was checked with mocked requests; no emails were sent.
-A full browser layout or real-device touch test was not available. These files
-have not been pushed or deployed to GitHub by the assistant.
+Automated movement tests completed all five rooms with each of the three
+heroes (15 combinations), within the 60-second limit. Every hero passed the
+first cage by holding right and collecting water, without taking damage.
+Checks also exercised wrong-protein recoil, fatal ignition through a shield,
+paused time, retry, selection locks, keyboard and pointer control, the delayed
+win dialog, next-room reset, and disabled/configured play notification logic.
+All five room backgrounds and all three portraits were rendered and visually
+inspected. The GIF shows accelerated gameplay from those same game functions.
+A full browser layout or real-device touch test was not available.
+No files have been pushed or deployed to GitHub by the assistant.
 
-REFERENCES
-https://github.com/github/markup
-https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+SCIENCE REFERENCES
 
-https://www.who.int/teams/environment-climate-change-and-health/chemical-safety-and-health/health-impacts/chemicals/arsenic
+https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article
+https://pubs.rsc.org/en/content/articlelanding/1984/f1/f19848000721
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3250073/
