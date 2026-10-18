@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <strong>3× faster toxic rain. 6× the incoming ions. Eight hazards from the start.</strong><br/>
-  <sub>+50 water · +300 target · −40 toxic hits · ignition cores = flames + Game Over.</sub><br/>
+  <strong>60 seconds per room. A moderate start. A tougher storm with every level.</strong><br/>
+  <sub>+50 water · +300 correct protein · wrong protein = red recoil / −40 · ignition cores = Game Over.</sub><br/>
   <a href="https://najla23.github.io/najla23/"><strong>▶ Play Ion Rescue</strong></a><br/>
   <sub>The animation appears here automatically. The interactive game runs on GitHub Pages.</sub>
 </p>

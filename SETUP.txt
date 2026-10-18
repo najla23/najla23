@@ -12,13 +12,14 @@ Extract this ZIP. From inside your local najla23/najla23 repository, on main:
   python3 /path/to/extracted/package/install_ion_game.py .
   git diff --stat
   git add README.md docs/index.html docs/.nojekyll nh/ion-rescue.gif
-  git commit -m "Add Ion Rescue and animated profile preview"
+  git commit -m "Rebalance Ion Rescue and add protein reactions"
   git push origin main
 
 The installer copies the game and animation, and adds a marked game section
 at the top of your existing README. It preserves the rest of your writing.
 On later runs, it replaces only its marked section. It backs up existing
-files inside .git/nh-game-backups. It does not commit, push, or change Pages
+files inside .git/nh-game-backups. It retains an existing play-email endpoint when the new package has none.
+It does not commit, push, or change Pages
 settings. It checks that your Git origin is najla23/najla23 and your branch
 is main. Review the files before committing, especially if you have other
 staged changes. Your existing nh/ graphics and research content are kept.
@@ -35,7 +36,7 @@ If the previous version appears, refresh the page without using the cache.
 WHAT APPEARS WHERE
 
 GitHub profile (github.com/najla23): an animated GIF preview appears directly
-inside the README. It is an animation of a real attempt under the fast, dense rain,
+inside the README. It is an animation of gameplay with the moderate first-room rain,
 not an interactive canvas. GitHub sanitizes scripts in README content, so a
 playable JavaScript game cannot be embedded there. The image links to the game.
 
@@ -48,15 +49,21 @@ Molecule_Playground.html (the same updated Ion Rescue game), in a browser.
 NEW IN CHEMISTRY STORM
 
 Four labelled toxic hazards fall from the first move: Pb2+, Hg2+, Cd2+,
-and As* (arsenic-containing species). Eight initial drops are visible before
-movement; nothing harmful moves until you start. New drops have a dashed
-warning lane before entering. Rain is faster and more frequent in later rooms.
-Compared with the previous Chemistry Storm version, initial falling speeds,
-acceleration, and speed caps are tripled; the spawn rate is multiplied by six.
-Spawn intervals are 0.1467, 0.12, and 0.0933 seconds in rooms 1, 2, and 3.
-New drops start arriving 0.15 seconds after movement begins.
-Walls intercept rain. A temporary water shield blocks a toxic hit; otherwise
-it costs 40 points and one life. Drops disappear after impact.
+and As* (arsenic-containing species). The first room now has moderate rain;
+later rooms increase both falling speed and frequency. Initial hazards stay
+still until the player moves. Walls intercept rain. Water blocks toxic hits.
+
+                        Room 1       Room 2       Room 3
+Timer                   60 seconds   60 seconds   60 seconds
+Lives                   4            3            2
+Water shield            4 seconds    3 seconds    2 seconds
+Initial drops           4            5            6
+Spawn interval          1.05 s       0.65 s       0.42 s
+Base fall speed         130          170          215
+Maximum fall speed      230          300          370
+Speeds are illustrative game units per second. Individual drops start up to
+30 units/s above the base speed; they accelerate toward the room's speed cap.
+The first new drop arrives after 1.0, 0.8, or 0.6 seconds respectively.
 
 Two orange ignition cores are present in every room. Touching one costs
 80 points and ends the attempt, even with a water shield. A short flame
@@ -73,31 +80,37 @@ THE GAME
 You control a potassium ion (K+). It starts trapped and must reach the green
 marked protein. The other protein is a decoy. Water escorts help the ion.
 
-All rooms start with only two lives.
-Room 1: pressure cage, 12 seconds, Protein A; a narrow 64-unit cage opening,
-       two moving traps, and a 0.9-second hold inside an 18-unit protein pocket.
-Room 2: decoy corridor, 15 seconds, Protein B; three moving traps and a
-       0.8-second hold inside a 19-unit protein pocket.
-Room 3: final lock, 12 seconds, Protein B; strong moving traps, narrow gates,
-       and a moving protein target. Hold inside its 18-unit pocket for 1 second.
-       The two barriers open for only 0.6 seconds in each 4.4-second cycle.
+Room 1: moderate pressure cage, Protein A, wider 96-unit cage exit,
+        gentler traps, 0.6-second hold inside a 26-unit protein pocket.
+Room 2: challenging decoy corridor, Protein B, three stronger traps,
+        0.8-second hold inside a 22-unit protein pocket.
+Room 3: hard final lock, Protein B, strong traps and moving target,
+        1-second hold inside an 18-unit pocket. Each gate opens for 1 second
+        in a 4.4-second cycle; water also allows safe passage.
 Docking requires remaining inside the pocket at a speed below 60 game units/s.
 The hold resets if you leave the pocket or move too fast. Time a burst to
 cross a briefly open barrier, then brake before docking.
 
 Collect water: +50 points and a temporary shield. A shield reduces trap pull,
 prevents trap damage, and lets the ion pass through an active barrier.
-Shields last 1.8 seconds in room 1, 2 seconds in room 2, and only 1.2 seconds
+Shields last 4 seconds in room 1, 3 seconds in room 2, and 2 seconds
 in the final room.
 They do not protect against choosing the wrong protein or touching an ignition core.
+Every room contains two proteins: the green target and the purple decoy.
+Wrong protein: red repulsion rings, broken-bond sparks, a clear WRONG PROTEIN
+banner, physical knockback, -40 points and -1 life. Hit immunity prevents
+multiple penalties on the same instant contact.
+Correct protein: a green binding halo, gold/teal sparks, a check mark, and
+CORRECT PROTEIN / Binding complete. The celebration plays for 1.25 seconds
+before the score dialog and next-room button appear.
 Reach the correct protein: +300 points.
 Finish without damage: +100 points.
 Each whole second left: +2 points.
 Hit toxic rain, an active trap, barrier, or wrong protein: -40 points and -1 stability.
-Two hits or an expired timer: GAME OVER, followed by "Try it later!"
+Losing all lives or running out of time: GAME OVER, followed by "Try it later!"
 One second of hit immunity prevents multiple hits from one instant contact.
 Retry resets only the current room's score and time; previous room scores stay.
-Fast-rain best scores are stored separately from earlier game versions,
+60-second edition best scores are stored separately from earlier game versions,
 only in the browser where local storage is available.
 
 Move: arrows or WASD; hold a point in the room to steer toward it.
@@ -124,25 +137,15 @@ The profile hits badge and statistics cards still use external services.
 
 VALIDATION
 
-The fast-rain update was checked against the previous version for exactly
-tripled starting speeds and a sixfold spawn rate, eight initial particles,
-increased average on-screen particle count, and bounded particle cleanup.
-Collision, shielding, paused/ready rain, wall interception, and ignition
-checks were retained. The new preview is rendered from the actual game engine;
-it shows an attempt ending in Game Over, not a successful completion.
-Earlier completion times do not apply to this faster, denser version.
-No completion-time or human-playability claim is made for this update.
-The chamber background has glass reaction columns, leaking pipes, glowing
-currents, membrane contours, molecular rings, a perspective floor, and a
-different palette in each room. Toxic hazards have bright outlines and
-directional trails, separate from faint decorative background particles.
-Reduced-motion settings freeze these decorative effects.
-Additional checks covered all four toxic species, first-move falling,
-paused/ready rain, water shielding, wall interception, all six ignition cores
-with and without a shield, flame timing, Game Over, and retry after ignition.
-The installer was checked for preserved README content and repeatable updates.
-A full browser layout or real-device touch test was not available. These new
-files have not been pushed or deployed to GitHub by the assistant.
+Automated game-engine checks completed all three rooms using movement inputs,
+verified 60-second timers, pause/retry behavior, progressively increasing rain,
+and correct/decoy reactions. A DOM event harness checked keyboard and pointer
+controls, feedback, the delayed win dialog, Game Over, and next-room reset.
+The animated preview is rendered from actual first-room gameplay, including
+one deliberate wrong-protein contact followed by successful docking.
+Optional email behavior was checked with mocked requests; no emails were sent.
+A full browser layout or real-device touch test was not available. These files
+have not been pushed or deployed to GitHub by the assistant.
 
 REFERENCES
 https://github.com/github/markup
