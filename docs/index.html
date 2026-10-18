@@ -24,6 +24,10 @@ body{transition:background-color .7s} .game-card{border-color:var(--room-accent,
 @media(max-width:760px){.crew-card canvas{width:58px;height:62px}.crew-card strong small{display:inline}.science-grid{grid-template-columns:1fr;gap:0}.sidebar .feedback,.sidebar .hydration-panel{grid-column:1/-1}.science summary span{float:none;display:block;margin:5px 0 0 15px}.room-name{max-width:185px}}
 @media(max-width:440px){.crew-options{gap:5px}.crew-card{flex-direction:column;padding:3px;text-align:center;gap:0}.crew-card canvas{width:58px;height:55px}.crew-card strong{font-size:16px}.crew-card strong small{display:none}.crew-card em{margin:3px 0}.crew-card span>small{font-size:8px;margin-bottom:5px}.crew-caption{gap:6px}.crew-caption .panel-label{font-size:9px}.crew-caption>span:last-child{font-size:8px}.room-name{max-width:150px}}
 
+
+.music-strip{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:11px 16px;border-top:1px solid #354452;background:linear-gradient(105deg,#141e2b,#192332)}.now-playing{display:flex;align-items:center;gap:11px;min-width:0}.now-playing strong{display:block;color:#e7dcbc;font:600 11px system-ui}.now-playing small{display:block;color:#9bb1c1;font-size:9px;margin-top:3px}.equalizer{display:flex;align-items:center;gap:3px;width:20px;height:24px;flex-shrink:0}.equalizer i{height:5px;width:3px;border-radius:2px;background:#a6d8c4}.equalizer.playing i{animation:musicPulse 1s ease-in-out infinite alternate}.equalizer.playing i:nth-child(2){animation-delay:-.7s}.equalizer.playing i:nth-child(3){animation-delay:-.3s}.equalizer.playing i:nth-child(4){animation-delay:-.9s}@keyframes musicPulse{0%{height:4px}100%{height:21px}}.volume-control{display:flex;align-items:center;gap:8px;font:10px system-ui;color:#bacbd0;flex-shrink:0}.volume-control input{width:85px;accent-color:#b9f27e;cursor:pointer;min-height:24px}.volume-control output{min-width:29px;font:10px ui-monospace,monospace}.volume-control input:focus-visible{outline:2px solid #f6d18a;outline-offset:3px}#sound[aria-pressed="true"]{border-color:#b9f27e;color:#d6f6bc}
+@media(max-width:480px){.music-strip{padding:9px 11px;gap:8px;flex-wrap:wrap}.now-playing small{font-size:8px}.volume-control input{width:70px}.volume-control{gap:5px}.now-playing{gap:7px}}
+@media(prefers-reduced-motion:reduce){.equalizer.playing i{animation:none;height:12px}}
 </style>
 </head>
 <body>
@@ -45,7 +49,8 @@ body{transition:background-color .7s} .game-card{border-color:var(--room-accent,
      <canvas id="canvas" width="960" height="560" tabindex="0" role="application" aria-label="Rescue a trapped ion. Arrow keys or W A S D move. Space gives a burst. P pauses, R retries. Collect water for a shield. Avoid falling toxic hazards and orange fatal ignition cores. Hold your ion still inside the green marked protein pocket. The purple protein is a decoy: contact repels the ion. Correct docking triggers a green celebration."></canvas>
      <div class="overlay" id="overlay" hidden><div class="dialog" role="dialog" aria-modal="false" aria-labelledby="dialogTitle"><div class="stamp" id="dialogStamp"></div><h2 id="dialogTitle"></h2><p id="dialogText"></p><button class="primary" id="dialogAction">Continue</button></div></div>
     </div>
-    <div class="toolbar"><div class="toolbar-left"><button id="pause" aria-label="Pause game">Pause</button><button id="retry">Retry</button><button id="sound" aria-pressed="false">Sound off</button><button id="fullscreen">Expand</button></div><div class="energy"><small id="burstStatus">BURST READY</small><progress id="cooldown" value="1" max="1" aria-label="Burst recharge"></progress><button id="burst" aria-label="Burst forward, or press Space">Burst ↗</button></div></div>
+    <div class="toolbar"><div class="toolbar-left"><button id="pause" aria-label="Pause game">Pause</button><button id="retry">Retry</button><button id="sound" aria-pressed="true" aria-label="Mute music and sound effects">♫ Music on</button><button id="fullscreen">Expand</button></div><div class="energy"><small id="burstStatus">BURST READY</small><progress id="cooldown" value="1" max="1" aria-label="Burst recharge"></progress><button id="burst" aria-label="Burst forward, or press Space">Burst ↗</button></div></div>
+    <div class="music-strip"><div class="now-playing"><span class="equalizer" id="musicBars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span><strong id="musicTrack">Bioluminescence</strong><small id="musicStatus">Music starts with your first move</small></span></div><label class="volume-control" for="musicVolume">Volume <input id="musicVolume" type="range" min="0" max="100" value="45" step="1" aria-label="Music and sound effects volume"><output id="volumeValue" for="musicVolume">45%</output></label></div>
    </section>
    <div class="guide"><p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / arrows · move &nbsp; <kbd>Space</kbd> · burst</p><p>Hold anywhere in the room to steer toward it.</p></div>
    <div class="touch-controls"><div class="dpad" aria-label="Movement controls"><button data-move="up" aria-label="Move up">↑</button><button data-move="left" aria-label="Move left">←</button><button data-move="down" aria-label="Move down">↓</button><button data-move="right" aria-label="Move right">→</button></div><p class="touch-note">Hold a direction, or hold your finger on the room. Water blocks toxic rain briefly. Orange ignition cores are fatal, even with a shield. Burst to dodge.</p></div>
@@ -350,6 +355,111 @@ function makePlayAlert({endpoint='',send,storage,now=()=>Date.now()}={}){
   }catch(e){return 'unavailable';}
  }};
 }
+// Original procedural score. No recordings, external downloads, or microphone access.
+const MUSIC_THEMES=[
+ {name:'Bioluminescence',style:'Dreamy botanical electronica',bpm:100,root:50,chords:[[0,4,7,11],[7,11,14,18],[9,12,16,19],[5,9,12,16]],melody:[12,null,16,19,21,null,19,16,14,null,16,12,9,7,9,null],arp:[0,2,1,3,2,1,3,2],cutoff:1900,drums:.60},
+ {name:'Crystal tides',style:'Glassy keys & floating bass',bpm:106,root:52,chords:[[0,3,7,10],[-4,0,3,7],[3,7,10,14],[-2,2,5,9]],melody:[19,null,15,14,12,null,14,15,22,null,19,15,14,10,12,null],arp:[3,1,2,0,2,1,3,2],cutoff:2400,drums:.68},
+ {name:'Copper heartbeat',style:'Clockwork groove & warm synths',bpm:116,root:45,chords:[[0,3,7,10],[-5,-2,2,5],[-2,2,5,9],[-7,-3,0,4]],melody:[12,12,null,15,19,null,15,10,12,null,19,22,19,15,14,null],arp:[0,0,2,1,3,2,1,2],cutoff:1500,drums:.86},
+ {name:'Synaptic afterglow',style:'Neon arpeggios & broken beats',bpm:124,root:48,chords:[[0,3,7,10],[8,12,15,19],[5,8,12,15],[7,11,14,17]],melody:[12,null,19,15,null,22,19,15,12,14,null,15,19,null,10,12],arp:[0,2,3,1,2,0,3,2],cutoff:2700,drums:.92},
+ {name:'Orbit home',style:'Cinematic synthwave finale',bpm:132,root:50,chords:[[0,3,7,10],[-2,2,5,9],[-5,-2,2,5],[-7,-3,0,4]],melody:[12,null,15,19,24,null,22,19,17,15,14,null,12,10,12,19],arp:[0,1,2,3,2,3,1,2],cutoff:3000,drums:1}
+];
+class OdysseyMusic{
+ constructor(createContext){this.createContext=createContext;this.ctx=null;this.enabled=false;this.visible=true;this.volume=.45;this.level=0;this.phase='ready';this.remaining=60;this.hydrated=false;this.species='K';this.timer=null;this.voices=new Set();this.tick=0;this.next=0;this.generation=0;}
+ get theme(){return MUSIC_THEMES[this.level];}
+ get playing(){return this.enabled&&this.visible&&['ready','running'].includes(this.phase);}
+ build(){
+  if(this.ctx)return;
+  const a=this.createContext();this.ctx=a;
+  this.master=a.createGain();this.master.gain.value=0;
+  this.compressor=a.createDynamicsCompressor();this.compressor.threshold.value=-15;this.compressor.knee.value=16;this.compressor.ratio.value=4;this.compressor.attack.value=.006;this.compressor.release.value=.22;
+  this.music=a.createGain();this.music.gain.value=0;this.effects=a.createGain();this.effects.gain.value=.75;
+  this.delay=a.createDelay(1);this.delay.delayTime.value=.29;this.echo=a.createGain();this.echo.gain.value=.19;this.feedback=a.createGain();this.feedback.gain.value=.25;
+  this.music.connect(this.master);this.effects.connect(this.master);this.music.connect(this.delay);this.delay.connect(this.echo);this.echo.connect(this.master);this.delay.connect(this.feedback);this.feedback.connect(this.delay);
+  this.master.connect(this.compressor);this.compressor.connect(a.destination);
+  // Reusable deterministic noise avoids buffers being allocated for every drum.
+  this.noise=a.createBuffer(1,a.sampleRate,a.sampleRate);let seed=72341;const data=this.noise.getChannelData(0);for(let i=0;i<data.length;i++){seed=(1664525*seed+1013904223)>>>0;data[i]=seed/2147483648-1;}
+ }
+ ramp(param,value,duration=.06){if(!this.ctx)return;const t=this.ctx.currentTime;param.cancelScheduledValues(t);param.setValueAtTime(param.value,t);param.linearRampToValueAtTime(value,t+duration);}
+ async setEnabled(enabled){
+  const generation=++this.generation;this.enabled=!!enabled;
+  if(!enabled){this.halt();this.stopVoices('effects');if(this.ctx)this.ramp(this.master.gain,0,.035);return false;}
+  try{this.build();if(this.ctx.state!=='running')await this.ctx.resume();if(generation!==this.generation||!this.enabled)return false;
+   if(this.ctx.state!=='running')throw Error('Audio could not start');this.applyVolume();this.ensureTransport();return true;
+  }catch(error){if(generation===this.generation){this.enabled=false;this.halt();}throw error;}
+ }
+ setVolume(value){this.volume=clamp(Number.isFinite(Number(value))?Number(value):.45,0,1);this.applyVolume();}
+ applyVolume(){if(this.ctx)this.ramp(this.master.gain,this.enabled&&this.visible?this.volume*.65:0,.04);}
+ setVisible(visible){this.visible=visible;if(!visible){this.halt();this.stopVoices('effects');}this.applyVolume();if(visible)this.ensureTransport();}
+ update({level,state,remaining,hydrated,species}){
+  const changed=level!==this.level;this.level=clamp(level,0,4);this.phase=state;this.remaining=remaining;this.hydrated=hydrated;this.species=species;
+  if(changed)this.halt();if(this.playing)this.ensureTransport();else this.halt();
+ }
+ ensureTransport(){
+  if(!this.playing||!this.ctx||this.ctx.state!=='running'||this.timer!==null)return;
+  this.tick=0;this.next=this.ctx.currentTime+.09;this.ramp(this.music.gain,1,.2);this.schedule();this.timer=setInterval(()=>this.schedule(),25);
+ }
+ halt(){if(this.timer!==null){clearInterval(this.timer);this.timer=null;}if(this.ctx){this.ramp(this.music.gain,0,.06);this.stopVoices('music');}}
+ stopVoices(bus){if(!this.ctx)return;for(const v of this.voices){if(v.bus!==bus||v.stopping)continue;v.stopping=true;this.ramp(v.gain.gain,0,.025);for(const source of v.sources){try{source.stop(this.ctx.currentTime+.035);}catch(e){}}}}
+ track(sources,nodes,gain,bus,end){
+  const v={sources,nodes,gain,bus,stopping:false};this.voices.add(v);let pending=sources.length;
+  for(const source of sources){source.onended=()=>{if(--pending===0){for(const node of nodes){try{node.disconnect();}catch(e){}}this.voices.delete(v);}};source.stop(end);}
+ }
+ note(midi,at,duration,amp=.07,type='sine',pan=0,bus='music',cutoff=2400){
+  if(!this.ctx||!Number.isFinite(midi))return;const a=this.ctx,gain=a.createGain(),filter=a.createBiquadFilter();filter.type='lowpass';filter.frequency.setValueAtTime(cutoff,at);filter.Q.value=.6;
+  gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(Math.max(.0002,amp),at+.012);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
+  const sources=[],nodes=[gain,filter];filter.connect(gain);let output=gain;
+  if(a.createStereoPanner){const panner=a.createStereoPanner();panner.pan.value=pan;gain.connect(panner);output=panner;nodes.push(panner);}output.connect(bus==='music'?this.music:this.effects);
+  const freq=440*Math.pow(2,(midi-69)/12),count=type==='bell'?2:1;
+  for(let k=0;k<count;k++){const osc=a.createOscillator();osc.type=type==='bell'?'sine':type;osc.frequency.setValueAtTime(freq*(k?2.002:1),at);if(k){const overtone=a.createGain();overtone.gain.value=.22;osc.connect(overtone);overtone.connect(filter);nodes.push(overtone);}else osc.connect(filter);sources.push(osc);nodes.push(osc);osc.start(at);}
+  this.track(sources,nodes,gain,bus,at+duration+.03);
+ }
+ pad(notes,at,length){
+  const a=this.ctx;
+  notes.forEach((midi,i)=>{
+   const osc=a.createOscillator(),gain=a.createGain(),filter=a.createBiquadFilter();osc.type='triangle';osc.frequency.value=440*Math.pow(2,(midi-69)/12);osc.detune.value=i%2?-4:4;filter.type='lowpass';filter.frequency.value=750+this.level*180;
+   gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(.025,at+.35);gain.gain.setValueAtTime(.025,at+Math.max(.36,length-.45));gain.gain.exponentialRampToValueAtTime(.0001,at+length+.35);
+   osc.connect(filter);filter.connect(gain);gain.connect(this.music);osc.start(at);this.track([osc],[osc,filter,gain],gain,'music',at+length+.4);
+  });
+ }
+ drum(kind,at,amp){
+  const a=this.ctx,gain=a.createGain();gain.connect(this.music);gain.gain.setValueAtTime(Math.max(amp,.0002),at);
+  if(kind==='kick'){
+   const osc=a.createOscillator();osc.type='sine';osc.frequency.setValueAtTime(145,at);osc.frequency.exponentialRampToValueAtTime(43,at+.12);gain.gain.exponentialRampToValueAtTime(.0001,at+.27);osc.connect(gain);osc.start(at);this.track([osc],[osc,gain],gain,'music',at+.3);
+  }else{
+   const source=a.createBufferSource(),filter=a.createBiquadFilter();source.buffer=this.noise;filter.type=kind==='snare'?'bandpass':'highpass';filter.frequency.value=kind==='snare'?1700:6500;filter.Q.value=kind==='snare'?.75:.4;const duration=kind==='snare'?.13:kind==='openhat'?.12:.045;gain.gain.exponentialRampToValueAtTime(.0001,at+duration);source.connect(filter);filter.connect(gain);source.start(at);this.track([source],[source,filter,gain],gain,'music',at+duration+.02);
+  }
+ }
+ schedule(){
+  if(!this.playing||!this.ctx||this.ctx.state!=='running')return;
+  const now=this.ctx.currentTime;if(this.next<now-.1)this.next=now+.03;let count=0;
+  while(this.next<now+.14&&count++<10){this.compose(this.tick,this.next);const urgency=this.phase==='running'&&this.remaining<15?1.08:1;this.next+=60/(this.theme.bpm*urgency)/4;this.tick++;}
+ }
+ compose(tick,at){
+  const theme=this.theme,bar=Math.floor(tick/16),step=tick%16,chord=theme.chords[bar%4],beat=60/theme.bpm,ready=this.phase==='ready',energy=ready?.45:1,urgent=!ready&&this.remaining<15;
+  if(step===0){this.pad(chord.map(n=>theme.root+n+12),at,beat*4);this.note(theme.root+chord[0]-12,at,beat*1.65,.19*energy,'sine',0,'music',650);}
+  if(!ready&&(step===8||(this.level>=2&&step===11)))this.note(theme.root+chord[0]-12+(step===11?7:0),at,beat*.7,.14,'triangle',0,'music',650);
+  // A harmonic pulse, a composed melody, and long-form arrangement changes.
+  if(step%2===0){const index=theme.arp[(step/2)%8],voice=this.species==='Li'?'triangle':this.species==='Na'?'sine':'bell';this.note(theme.root+chord[index]+24,at,beat*.78,.034*energy,voice,(step%4===0?-.35:.35),'music',theme.cutoff);}
+  const melody=theme.melody[(step+(bar%2?8:0))%16];
+  if(melody!==null&&(bar%8>=2||this.level===4)&&!ready){const octave=bar%8>=6?12:0;this.note(theme.root+melody+12+octave,at,beat*(step%4===0?1.1:.6),.052,'bell',Math.sin(bar)*.18,'music',3500);}
+  if(!ready){
+   if([0,8].includes(step)||(this.level>=2&&step===10)||(this.level>=3&&step===14))this.drum('kick',at,.48*theme.drums);
+   if(step===4||step===12)this.drum('snare',at,.16*theme.drums);
+   if(step%2===0||urgent||this.level>=3)this.drum(step===6||step===14?'openhat':'hat',at,(step%2?.022:.041)*theme.drums);
+   if(this.hydrated&&step===6)this.note(theme.root+chord[2]+36,at,.65,.028,'bell',.55);
+  }
+ }
+ effect(kind){
+  if(!this.enabled||!this.visible||!this.ctx||this.ctx.state!=='running')return;
+  const t=this.ctx.currentTime+.015,root=this.theme.root;
+  if(kind==='reward'){[12,16,19,24].forEach((n,i)=>this.note(root+n,t+i*.075,.42,.09,'bell',i*.15-.2,'effects'));}
+  else if(kind==='win'){[0,4,7,12,16,19,24].forEach((n,i)=>this.note(root+n+12,t+i*.095,.8,.085,'bell',i*.09-.25,'effects'));}
+  else if(kind==='hit'||kind==='ignite'){[0,-3,-7].forEach((n,i)=>this.note(root+n,t+i*.065,.2,.095,'triangle',0,'effects',800));}
+  else if(kind==='fail'){[7,3,0,-12].forEach((n,i)=>this.note(root+n,t+i*.17,.5,.07,'triangle',0,'effects',1000));}
+  else if(kind==='burst'){[0,7,12].forEach((n,i)=>this.note(root+n+24,t+i*.035,.14,.04,'sine',0,'effects'));}
+ }
+}
+
 if(typeof document!=='undefined'){
  const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),game=new EscapeGame();
  const alertMeta=document.querySelector('meta[name="nh-play-alert-endpoint"]');
@@ -359,13 +469,31 @@ if(typeof document!=='undefined'){
  const crewButtons=Array.from(document.querySelectorAll('[data-species]'));
  for(const key of Object.keys(SPECIES)){const portrait=$('portrait'+key);drawIonCharacter(portrait.getContext('2d'),50,51,SPECIES[key],0,1.5);}
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- const keys=new Set(),pads=new Map();let pointer=null,last=0,acc=0,lastState='',sound=false,audio=null,best=0,lastUi=-1;
+ const keys=new Set(),pads=new Map();let pointer=null,last=0,acc=0,lastState='',best=0,lastUi=-1;
  try{best=Number(localStorage.getItem('nh-ion-rescue-odyssey-v5-best')||0);if(!Number.isFinite(best))best=0;}catch(e){}
- function tone(type){if(!sound)return;try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime,osc=audio.createOscillator(),gain=audio.createGain();osc.connect(gain);gain.connect(audio.destination);osc.type=type==='hit'?'sawtooth':'sine';osc.frequency.setValueAtTime(type==='hit'?140:type==='win'?650:820,now);osc.frequency.exponentialRampToValueAtTime(type==='hit'?60:1200,now+.17);gain.gain.setValueAtTime(.035,now);gain.gain.exponentialRampToValueAtTime(.001,now+.23);osc.start(now);osc.stop(now+.24);}catch(e){}}
- game.onEvent=e=>{if(e.type==='start'&&game.state==='running')void playAlert.onPlay();$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win'].includes(e.type))tone(e.type==='ignite'?'hit':e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-odyssey-v5-best',String(best));}catch(e){}}};
+ let musicWanted=true;
+ const soundtrack=new OdysseyMusic(()=>{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)throw Error('Web Audio unavailable');return new Audio();});
+ try{const saved=localStorage.getItem('nh-ion-music-volume');if(saved!==null&&Number.isFinite(Number(saved)))soundtrack.setVolume(Number(saved));}catch(e){}
+ $('musicVolume').value=Math.round(soundtrack.volume*100);$('volumeValue').textContent=Math.round(soundtrack.volume*100)+'%';
+ function tone(type){soundtrack.effect(type);}
+ function syncMusic(){
+  soundtrack.update({level:game.level,state:game.state,remaining:game.remaining,hydrated:game.hydration>0,species:game.speciesKey});
+  $('musicTrack').textContent=MUSIC_THEMES[game.level].name;
+  $('musicStatus').textContent=!musicWanted?'Music muted · tap ♫ Music to listen':!soundtrack.enabled?'Music starts with your first move':!soundtrack.visible||game.state==='paused'?'Music paused':soundtrack.volume===0?'Volume muted':soundtrack.playing?(game.remaining<15?'Final countdown · '+MUSIC_THEMES[game.level].style:MUSIC_THEMES[game.level].style):'Ready for your next adventure';
+  $('musicBars').className='equalizer'+(soundtrack.playing&&soundtrack.volume>0?' playing':'');
+  $('sound').textContent=musicWanted?'♫ Music on':'♫ Music off';$('sound').setAttribute('aria-pressed',String(musicWanted));$('sound').setAttribute('aria-label',musicWanted?'Mute music and sound effects':'Enable music and sound effects');
+ }
+
+ function startMusicOnPlay(){
+  if(!['ready','running'].includes(game.state))return;
+  game.start();syncMusic();
+  if(musicWanted&&!soundtrack.enabled){void soundtrack.setEnabled(true).then(()=>syncMusic()).catch(()=>{musicWanted=false;syncMusic();$('feedback').textContent='Music could not start. Tap ♫ Music to try again.';});}
+ }
+
+ game.onEvent=e=>{if(e.type==='start'&&game.state==='running')void playAlert.onPlay();$('feedback').textContent=e.text;$('feedback').className='panel feedback'+(e.value>0?' positive':e.value<0?' negative':'');if(['reward','hit','ignite','win','fail','burst'].includes(e.type))tone(e.type);if(e.type==='win'&&game.score>best){best=game.score;try{localStorage.setItem('nh-ion-rescue-odyssey-v5-best',String(best));}catch(e){}}};
  function clearInput(){keys.clear();pads.clear();pointer=null;}
  function resumeFocus(){clearInput();last=0;acc=0;canvas.focus({preventScroll:true});sync(true);}
- function sync(force=false){const t=Math.ceil(game.remaining),uiState=['won','complete'].includes(game.state)&&game.proteinReaction?.kind==='correct'&&game.proteinReaction.age<1.25?'celebrating':game.state;if(!force&&t===lastUi&&uiState===lastState&&game.state!=='running')return;lastUi=t;
+ function sync(force=false){syncMusic();const t=Math.ceil(game.remaining),uiState=['won','complete'].includes(game.state)&&game.proteinReaction?.kind==='correct'&&game.proteinReaction.age<1.25?'celebrating':game.state;if(!force&&t===lastUi&&uiState===lastState&&game.state!=='running')return;lastUi=t;
   $('roomLabel').textContent='ROOM 0'+(game.level+1)+' / 05';$('roomName').textContent=game.room.name;$('score').textContent=game.score;$('health').textContent='●'.repeat(game.health)+'○'.repeat(game.room.lives-game.health);$('health').setAttribute('aria-label',game.health+' hits remaining');$('time').textContent=Math.floor(t/60)+':'+String(t%60).padStart(2,'0');$('time').style.color=t<12?'#ff8b78':'';$('sparks').textContent=game.collected.size+' / '+game.room.sparks.length;$('missionTitle').textContent=game.room.mission;$('missionText').textContent=game.room.hint;$('best').textContent=best||'—';$('cooldown').value=1-game.cooldown/4;$('dockProgress').value=game.dockHold/game.room.dock;$('dockValue').textContent=game.dockHold.toFixed(1)+' / '+game.room.dock+'s';$('burstStatus').textContent=game.cooldown>0?'CHARGING':'BURST READY';$('burst').disabled=game.cooldown>0||['paused','burning','won','complete','failed'].includes(game.state);$('pause').textContent=game.state==='paused'?'Resume':'Pause';$('pause').setAttribute('aria-label',game.state==='paused'?'Resume game':'Pause game');
   $('gameCard').style.setProperty('--room-accent',THEMES[game.level].accent);$('gameCard').style.setProperty('--room-panel',THEMES[game.level].panel);
   $('ionIdentity').textContent=game.species.symbol+' · '+game.species.title;$('ionIdentity').style.color=game.species.color;
@@ -385,22 +513,23 @@ if(typeof document!=='undefined'){
  crewButtons.forEach(b=>b.addEventListener('click',()=>{if(game.chooseSpecies(b.dataset.species)){sync(true);canvas.focus({preventScroll:true});}}));
  function action(){if(game.state==='paused')game.pause();else if(game.state==='failed')game.retry();else if(game.state==='won')game.next();else if(game.state==='complete')game.restart();resumeFocus();}
  function togglePause(){game.pause();resumeFocus();}
- $('dialogAction').addEventListener('click',action);$('pause').addEventListener('click',togglePause);$('retry').addEventListener('click',()=>{game.retry();resumeFocus();});$('burst').addEventListener('click',()=>{game.burst();canvas.focus({preventScroll:true});sync(true);});$('sound').addEventListener('click',()=>{sound=!sound;$('sound').textContent=sound?'Sound on':'Sound off';$('sound').setAttribute('aria-pressed',String(sound));if(sound)tone('reward');});
+ $('dialogAction').addEventListener('click',action);$('pause').addEventListener('click',togglePause);$('retry').addEventListener('click',()=>{game.retry();resumeFocus();});$('burst').addEventListener('click',()=>{startMusicOnPlay();game.burst();canvas.focus({preventScroll:true});sync(true);});$('sound').addEventListener('click',async()=>{musicWanted=!musicWanted;try{await soundtrack.setEnabled(musicWanted);syncMusic();}catch(e){musicWanted=false;$('feedback').textContent='Music could not start in this browser. Tap Music to try again; the game still works.';syncMusic();}});
+ $('musicVolume').addEventListener('input',()=>{soundtrack.setVolume(Number($('musicVolume').value)/100);$('volumeValue').textContent=Math.round(soundtrack.volume*100)+'%';$('musicVolume').setAttribute('aria-valuetext',Math.round(soundtrack.volume*100)+' percent');try{localStorage.setItem('nh-ion-music-volume',String(soundtrack.volume));}catch(e){}syncMusic();});
  $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('gameCard').requestFullscreen)await $('gameCard').requestFullscreen();else $('feedback').textContent='Fullscreen is unavailable in this browser. Rotate your phone for a larger room.';}catch(e){$('feedback').textContent='Fullscreen is unavailable here. The game still works in this window.'}});
  document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Shrink':'Expand';});
  const moveKeys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','w','a','s','d'];
- canvas.addEventListener('keydown',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;if(moveKeys.includes(k)){e.preventDefault();keys.add(k);}else if(k===' '){e.preventDefault();if(!e.repeat)game.burst();}else if(k==='p'||k==='Escape'){e.preventDefault();if(!e.repeat)togglePause();}else if(k==='r'){e.preventDefault();if(!e.repeat){game.retry();resumeFocus();}}});
+ canvas.addEventListener('keydown',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;if(moveKeys.includes(k)){e.preventDefault();startMusicOnPlay();keys.add(k);}else if(k===' '){e.preventDefault();if(!e.repeat){startMusicOnPlay();game.burst();}}else if(k==='p'||k==='Escape'){e.preventDefault();if(!e.repeat)togglePause();}else if(k==='r'){e.preventDefault();if(!e.repeat){game.retry();resumeFocus();}}});
  window.addEventListener('keyup',e=>{keys.delete(e.key.length===1?e.key.toLowerCase():e.key);});
  function point(e){const r=canvas.getBoundingClientRect(),scale=Math.min(r.width/W,r.height/H),ox=(r.width-W*scale)/2,oy=(r.height-H*scale)/2;return{x:clamp((e.clientX-r.left-ox)/scale,0,W),y:clamp((e.clientY-r.top-oy)/scale,0,H)};}
- canvas.addEventListener('pointerdown',e=>{if(pointer!==null||!['ready','running'].includes(game.state))return;e.preventDefault();canvas.focus({preventScroll:true});const p=point(e);pointer={id:e.pointerId,...p};canvas.setPointerCapture(e.pointerId);game.start();});
+ canvas.addEventListener('pointerdown',e=>{if(pointer!==null||!['ready','running'].includes(game.state))return;e.preventDefault();canvas.focus({preventScroll:true});const p=point(e);pointer={id:e.pointerId,...p};canvas.setPointerCapture(e.pointerId);startMusicOnPlay();});
  canvas.addEventListener('pointermove',e=>{if(pointer&&pointer.id===e.pointerId){Object.assign(pointer,point(e));e.preventDefault();}});
  function release(e){if(pointer&&pointer.id===e.pointerId)pointer=null;}
  canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
- document.querySelectorAll('[data-move]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();canvas.focus({preventScroll:true});pads.set(e.pointerId,b.dataset.move);b.setPointerCapture(e.pointerId);game.start();});for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,e=>pads.delete(e.pointerId));});
+ document.querySelectorAll('[data-move]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();canvas.focus({preventScroll:true});pads.set(e.pointerId,b.dataset.move);b.setPointerCapture(e.pointerId);startMusicOnPlay();});for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,e=>pads.delete(e.pointerId));});
  function getInput(){let x=(keys.has('ArrowRight')||keys.has('d')?1:0)-(keys.has('ArrowLeft')||keys.has('a')?1:0),y=(keys.has('ArrowDown')||keys.has('s')?1:0)-(keys.has('ArrowUp')||keys.has('w')?1:0);for(const dir of pads.values()){if(dir==='left')x--;if(dir==='right')x++;if(dir==='up')y--;if(dir==='down')y++;}if(pointer&&x===0&&y===0){x=clamp((pointer.x-game.p.x)*.065-game.p.vx*.006,-1,1);y=clamp((pointer.y-game.p.y)*.065-game.p.vy*.006,-1,1);}return{x,y};}
  function frame(now){if(last===0)last=now;const dt=Math.min((now-last)/1000,.05);last=now;if(!document.hidden){acc+=dt;while(acc>=DT){game.step(DT,getInput());acc-=DT;}}else acc=0;drawGame(ctx,game,reduced);sync();requestAnimationFrame(frame);}
- function blur(){clearInput();if(game.state==='running')game.pause();last=0;acc=0;sync(true);}
- window.addEventListener('blur',blur);document.addEventListener('visibilitychange',()=>{if(document.hidden)blur();else{last=0;acc=0;}});
+ function blur(){soundtrack.setVisible(false);clearInput();if(game.state==='running')game.pause();last=0;acc=0;sync(true);}
+ window.addEventListener('blur',blur);window.addEventListener('focus',()=>{soundtrack.setVisible(!document.hidden);syncMusic();});document.addEventListener('visibilitychange',()=>{if(document.hidden)blur();else{last=0;acc=0;soundtrack.setVisible(true);syncMusic();}});
  sync(true);drawGame(ctx,game,reduced);requestAnimationFrame(frame);canvas.focus({preventScroll:true});
 }
 </script>
